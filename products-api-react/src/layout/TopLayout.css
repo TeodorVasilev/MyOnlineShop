@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Blinker&display=swap');
+
+/* LOGO */
+.logo{
+    font-family: 'Righteous', cursive;
+    font-size: 36px;
+}
+
+.logo-my{
+    color: #0d6efd;
+}
+
+.slogan{
+    font-family: 'Blinker', sans-serif;
+}
+/* LOGO END */
+
+/* NAV */
+.navbar{
+    height: 18vh;
+}
+
+.nav-link{
+    color: #0d6efd;
+}
+
+.nav-link-text{
+    color: black;
+    font-family: 'Blinker', sans-serif;
+}
+/* NAV END */
