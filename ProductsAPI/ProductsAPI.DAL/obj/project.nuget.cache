@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "shQ40UNzYY5KyefxKpJVe4g0McKErBx2MvlqlqqZZYvUN4IEEdoeCQxOtv6UgBxc9v2do5d1hWkS0/XSGhlTVA==",
+  "dgSpecHash": "wFjreUF9OlfQZMVBGOQV9m54epQCmZDdiRpOoiWRUlqI+LXyksaDMWLQZlFdwlx2XHsZSTyQPXKPObh0dX7AqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
+  "projectFilePath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\npc13\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\npc13\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.9\\microsoft.aspnetcore.cryptography.internal.6.0.9.nupkg.sha512",

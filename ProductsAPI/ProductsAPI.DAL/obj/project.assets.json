@@ -2026,11 +2026,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
       "projectName": "ProductsAPI.DAL",
-      "projectPath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
+      "projectPath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
       "packagesPath": "C:\\Users\\npc13\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\obj\\",
+      "outputPath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

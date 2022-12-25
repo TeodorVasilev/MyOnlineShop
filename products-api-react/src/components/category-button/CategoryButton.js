@@ -8,8 +8,8 @@ class CategoryButton extends React.Component {
 
     render() {
         return (
-            <div className="col-3 d-flex p-0">
-                <button className="cat-btn w-100 border-0 fw-bold border-start text-uppercase">Category</button>
+            <div className="col-2 d-flex p-0">
+                <button className="cat-btn w-100 border-0 fw-bold border-start text-uppercase">{this.props.name}</button>
             </div>
         );
     }

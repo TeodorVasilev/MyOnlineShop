@@ -1,19 +1,86 @@
 import "./TopLayout.css";
 import React from "react";
-import { PersonFill, HeartFill, CartFill, EnvelopeAt, Facebook, Whatsapp, Star, StarFill } from "react-bootstrap-icons";
+import { PersonFill, HeartFill, CartFill, EnvelopeAt, Facebook, Whatsapp, Star, StarFill, XCircleFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import CategoriesList from "../components/categories-list/CategoriesList";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as actions from "../actions/AuthActions";
+import Constants from "../constants/Constants";
+import jwt_decode from "jwt-decode";
 
 class TopLayout extends React.Component {
 
     constructor(props) {
         super(props);
+        this.checkIfUserIsLogged();
+    }
+
+    logout = () => {
+        this.props.setAuthState(false);
+        this.props.setUser({});
+        localStorage.removeItem('token');
+    }
+
+    checkIfUserIsLogged = () => {
+        try {
+            const token = localStorage.getItem('token');
+            const decoded = jwt_decode(token);
+
+            if (token !== null) {
+                fetch(Constants.BASE_URL + `User?id=${decoded.UserId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        this.props.setAuthState(true);
+                        this.props.setUser({
+                            ...response
+                        });
+                    })
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     render() {
+        const isLogged = this.props.layout.isLogged;
+        let element;
+
+        if (!isLogged) {
+            element =
+                <li className="nav-item me-4">
+                    <Link className="nav-link d-flex flex-column align-items-center" to="/login">
+                        <PersonFill size={28}></PersonFill>
+                        <span className="nav-link-text">Login</span>
+                    </Link>
+                </li>
+        } else {
+            element =
+                <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li className="nav-item me-4 d-flex">
+                        <Link className="nav-link d-flex flex-column align-items-center" to="/">
+                            <PersonFill size={28}></PersonFill>
+                            <span className="nav-link-text">{this.props.layout.user.email}</span>
+                        </Link>
+                    </li>
+                    <li className="nav-item me-4 d-flex">
+                        <Link className="nav-link d-flex flex-column align-items-center" onClick={this.logout}>
+                            <XCircleFill className="text-danger" size={27}></XCircleFill>
+                            <span className="nav-link-text">Logout</span>
+                        </Link>
+                    </li>
+                </ul>;
+        }
+
         return (
             <div>
-                <div className="p-0 container-fluid bg-light">
+                <div className="p-0 container-fluid bg-light border-bottom">
                     <div className='container-xxl d-flex justify-content-between review-contacts'>
                         <div className="review-link">
                             <Link className='text-decoration-none'>
@@ -63,7 +130,7 @@ class TopLayout extends React.Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <div className="ms-auto me-auto">
                                 <form className="d-flex" role="search">
-                                    <div class="main-search-input-wrap">
+                                    <div class="main-search-input-wrap ms-5">
                                         <div class="main-search-input fl-wrap">
                                             <div class="main-search-input-item">
                                                 <input type="text" placeholder="Search Products..." />
@@ -71,18 +138,11 @@ class TopLayout extends React.Component {
                                             <button class="main-search-button">Search</button>
                                         </div>
                                     </div>
-                                    {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                    <button className="btn btn-outline-primary" type="submit">Search</button> */}
                                 </form>
                             </div>
                             <div className="ms-auto">
                                 <ul className="navbar-nav mb-2 mb-lg-0">
-                                    <li className="nav-item me-4">
-                                        <Link className="nav-link d-flex flex-column align-items-center" to="/login">
-                                            <PersonFill size={28}></PersonFill>
-                                            <span className="nav-link-text">Login</span>
-                                        </Link>
-                                    </li>
+                                    {element}
                                     <li className="nav-item">
                                         <Link className="position-relative nav-link d-flex flex-column align-items-center mt-1">
                                             <HeartFill size={23}></HeartFill>
@@ -115,4 +175,18 @@ class TopLayout extends React.Component {
     }
 }
 
-export default TopLayout;
+const mapStateToProps = state => {
+    return {
+        layout: state.layout
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        setAuthState: actions.setAuthState,
+        setUser: actions.setUser
+    }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopLayout);

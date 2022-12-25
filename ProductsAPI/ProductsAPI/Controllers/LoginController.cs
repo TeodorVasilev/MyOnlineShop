@@ -22,7 +22,7 @@ namespace ProductsAPI.Controllers
             if (token == null)
             {
                 return NotFound(message);
-            }
+            } 
 
             return Ok(new LoginResponseViewModel(token, message));
         }

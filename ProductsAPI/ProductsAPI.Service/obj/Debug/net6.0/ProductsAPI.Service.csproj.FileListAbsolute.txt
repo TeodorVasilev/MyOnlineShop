@@ -13,3 +13,18 @@ C:\Users\npc13\Desktop\ASP.NET Core Web API\ProductsAPI\ProductsAPI.Service\obj\
 C:\Users\npc13\Desktop\ASP.NET Core Web API\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.dll
 C:\Users\npc13\Desktop\ASP.NET Core Web API\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ref\ProductsAPI.Service.dll
 C:\Users\npc13\Desktop\ASP.NET Core Web API\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.pdb
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\bin\Debug\net6.0\ProductsAPI.Service.deps.json
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\bin\Debug\net6.0\ProductsAPI.Service.dll
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\bin\Debug\net6.0\ref\ProductsAPI.Service.dll
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\bin\Debug\net6.0\ProductsAPI.Service.pdb
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\bin\Debug\net6.0\ProductsAPI.DAL.dll
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\bin\Debug\net6.0\ProductsAPI.DAL.pdb
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.csproj.AssemblyReference.cache
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.AssemblyInfoInputs.cache
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.AssemblyInfo.cs
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.csproj.CoreCompileInputs.cache
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.csproj.CopyComplete
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.dll
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ref\ProductsAPI.Service.dll
+C:\Users\npc13\Desktop\OnlineShop\ProductsAPI\ProductsAPI.Service\obj\Debug\net6.0\ProductsAPI.Service.pdb

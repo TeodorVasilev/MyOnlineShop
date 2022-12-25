@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\TEST\\TEST.csproj": {}
+    "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\TEST\\TEST.csproj": {}
   },
   "projects": {
-    "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj": {
+    "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
         "projectName": "ProductsAPI.DAL",
-        "projectPath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
+        "projectPath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj",
         "packagesPath": "C:\\Users\\npc13\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\obj\\",
+        "outputPath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -88,14 +88,14 @@
         }
       }
     },
-    "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\TEST\\TEST.csproj": {
+    "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\TEST\\TEST.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\TEST\\TEST.csproj",
+        "projectUniqueName": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\TEST\\TEST.csproj",
         "projectName": "TEST",
-        "projectPath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\TEST\\TEST.csproj",
+        "projectPath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\TEST\\TEST.csproj",
         "packagesPath": "C:\\Users\\npc13\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\TEST\\obj\\",
+        "outputPath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\TEST\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -116,8 +116,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj": {
-                "projectPath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj"
+              "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj": {
+                "projectPath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.DAL\\ProductsAPI.DAL.csproj"
               }
             }
           }

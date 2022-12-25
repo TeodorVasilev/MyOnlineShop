@@ -1,6 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import TopLayout from "./layout/TopLayout";
+import { Route, Switch } from "react-router-dom";
 import HomeView from "./views/home/HomeView";
 import LoginView from "./views/login/LoginView";
 
@@ -12,12 +11,12 @@ class App extends React.Component {
 
   render() {
     return (
-        <Routes>
-          <Route exact path="/" element={<HomeView />}>
+      <Switch>
+          <Route exact path="/" component={HomeView}>
           </Route>
-          <Route path="/login" element={<LoginView/>}>
+          <Route path="/login" component={LoginView}>
           </Route>
-        </Routes>
+      </Switch>
     );
   }
 }

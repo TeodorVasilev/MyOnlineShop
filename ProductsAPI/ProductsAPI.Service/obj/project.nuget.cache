@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W/2J/OnVvw3eUN/dmwYVy/AI3heCrftynF3kCTjWvEauUaaXgy7flFFCllYdUTwZXt2aSwvglQWK71Kek2amsA==",
+  "dgSpecHash": "f3VRgHxhfkvFdLx+R9BN1we2A5y542EHCOhNDhgCqfz92MBUDs1FzFwffgZLdKvU0fCnFDQQ7xKf/fCkNyGSHQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\npc13\\Desktop\\ASP.NET Core Web API\\ProductsAPI\\ProductsAPI.Service\\ProductsAPI.Service.csproj",
+  "projectFilePath": "C:\\Users\\npc13\\Desktop\\OnlineShop\\ProductsAPI\\ProductsAPI.Service\\ProductsAPI.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\npc13\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\npc13\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
