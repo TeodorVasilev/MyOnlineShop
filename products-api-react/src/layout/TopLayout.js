@@ -1,7 +1,8 @@
-import './TopLayout.css';
+import "./TopLayout.css";
 import React from "react";
 import { PersonFill, HeartFill, CartFill, EnvelopeAt, Facebook, Whatsapp, Star, StarFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import CategoriesList from "../components/categories-list/CategoriesList";
 
 class TopLayout extends React.Component {
 
@@ -12,38 +13,40 @@ class TopLayout extends React.Component {
     render() {
         return (
             <div>
-                <div className="container-fluid d-flex justify-content-between review-contacts bg-light">
-                    <div className="review-link">
-                        <Link className='text-decoration-none'>
-                            <div className='d-flex align-items-center'>
-                                <Star className='me-1'></Star>
-                                <span>Client Reviews</span>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="contacts d-flex">
-                        <Link className='text-decoration-none'>
-                            <div className='contact-item me-4 d-flex align-items-center'>
-                                <EnvelopeAt className='me-1'></EnvelopeAt>
-                                <span>contact@myonlineshop.com</span>
-                            </div>
-                        </Link>
-                        <Link className='text-decoration-none'>
-                            <div className='contact-item d-flex align-items-center'>
-                                <Facebook className='me-1'></Facebook>
-                                <span>MyOnlineShop</span>
-                            </div>
-                        </Link>
-                        <Link className='text-decoration-none'>
-                            <div className='contact-item ms-4 d-flex align-items-center'>
-                                <Whatsapp className='me-1'></Whatsapp>
-                                <span>0898888888</span>
-                            </div>
-                        </Link>
+                <div className="p-0 container-fluid bg-light">
+                    <div className='container-xxl d-flex justify-content-between review-contacts'>
+                        <div className="review-link">
+                            <Link className='text-decoration-none'>
+                                <div className='d-flex align-items-center'>
+                                    <Star className='me-1'></Star>
+                                    <span>Client Reviews</span>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="contacts d-flex">
+                            <Link className='text-decoration-none'>
+                                <div className='contact-item me-4 d-flex align-items-center'>
+                                    <EnvelopeAt className='me-1'></EnvelopeAt>
+                                    <span>contact@myonlineshop.com</span>
+                                </div>
+                            </Link>
+                            <Link className='text-decoration-none'>
+                                <div className='contact-item d-flex align-items-center'>
+                                    <Facebook className='me-1'></Facebook>
+                                    <span>MyOnlineShop</span>
+                                </div>
+                            </Link>
+                            <Link className='text-decoration-none'>
+                                <div className='contact-item ms-4 d-flex align-items-center'>
+                                    <Whatsapp className='me-1'></Whatsapp>
+                                    <span>0898888888</span>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
                 </div>
                 <nav className="navbar navbar-expand-lg">
-                    <div className="container-fluid">
+                    <div className="container-fluid container-xxl">
                         <div className="me-auto d-flex align-items-center">
                             <a className="navbar-brand logo" href="#"><span className="logo-my">My</span>OnlineShop</a>
                             <div className="slogan">
@@ -105,6 +108,7 @@ class TopLayout extends React.Component {
                         </div>
                     </div>
                 </nav>
+                <CategoriesList></CategoriesList>
                 {this.props.children}
             </div>
         );

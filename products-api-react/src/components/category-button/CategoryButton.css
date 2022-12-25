@@ -1,0 +1,8 @@
+.cat-btn:nth-last-child(n){
+    border-right: 1px solid #dee2e6 !important;
+}
+
+.cat-btn:hover{
+    color: white;
+    background-color: black;
+}
