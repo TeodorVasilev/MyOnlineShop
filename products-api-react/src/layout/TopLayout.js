@@ -51,6 +51,10 @@ class TopLayout extends React.Component {
     render() {
         const isLogged = this.props.layout.isLogged;
         let element;
+        let favoritesCnt;
+        let cartCnt;
+        let showFavoritesBadge;
+        let showCartBadge;
 
         if (!isLogged) {
             element =
@@ -64,7 +68,7 @@ class TopLayout extends React.Component {
             element =
                 <ul className="navbar-nav mb-2 mb-lg-0">
                     <li className="nav-item me-4 d-flex">
-                        <Link className="nav-link d-flex flex-column align-items-center" to="/">
+                        <Link className="nav-link d-flex flex-column align-items-center" to="/account">
                             <PersonFill size={28}></PersonFill>
                             <span className="nav-link-text">{this.props.layout.user.email}</span>
                         </Link>
@@ -76,6 +80,12 @@ class TopLayout extends React.Component {
                         </Link>
                     </li>
                 </ul>;
+
+                favoritesCnt = this.props.layout.user.favoriteIds.length;
+                cartCnt = this.props.layout.user.cartIds.length;
+
+                favoritesCnt != 0 ?  showFavoritesBadge = true : showFavoritesBadge = false;
+                cartCnt != 0 ? showCartBadge = true : showCartBadge = false;
         }
 
         return (
@@ -147,9 +157,9 @@ class TopLayout extends React.Component {
                                         <Link className="position-relative nav-link d-flex flex-column align-items-center mt-1">
                                             <HeartFill size={23}></HeartFill>
                                             <span className="nav-link-text">Favorites</span>
-                                            <span class="position-absolute top-0 start-50 badge rounded-pill bg-danger">
-                                                2
-                                                <span class="visually-hidden">unread messages</span>
+                                            <span style={{display: showFavoritesBadge ? 'block' : 'none' }} className="position-absolute top-0 start-50 badge rounded-pill bg-danger">
+                                                {favoritesCnt}
+                                                <span className="visually-hidden">unread messages</span>
                                             </span>
                                         </Link>
                                     </li>
@@ -157,9 +167,9 @@ class TopLayout extends React.Component {
                                         <Link className="position-relative nav-link d-flex flex-column align-items-center mt-1">
                                             <CartFill size={23}></CartFill>
                                             <span className="nav-link-text">Cart</span>
-                                            <span class="position-absolute top-0 start-50 badge rounded-pill bg-danger">
-                                                2
-                                                <span class="visually-hidden">unread messages</span>
+                                            <span style={{display: showCartBadge ? 'block' : 'none' }} className="position-absolute top-0 start-50 badge rounded-pill bg-danger">
+                                                {cartCnt}
+                                                <span className="visually-hidden">unread messages</span>
                                             </span>
                                         </Link>
                                     </li>
@@ -184,7 +194,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         setAuthState: actions.setAuthState,
-        setUser: actions.setUser
+        setUser: actions.setUser,
     }, dispatch)
 }
 

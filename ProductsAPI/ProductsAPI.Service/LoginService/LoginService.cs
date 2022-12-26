@@ -15,7 +15,6 @@ namespace ProductsAPI.Service.LoginService
     {
         private readonly ProductsDbContext _context;
         private readonly IRoleService _roleService;
-        //private readonly SignInManager<ApiUser> _signInManager;
 
         public LoginService(ProductsDbContext context, IRoleService roleService)
         {

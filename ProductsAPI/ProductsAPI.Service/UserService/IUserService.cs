@@ -11,6 +11,6 @@ namespace ProductsAPI.Service.UserService
     public interface IUserService
     {
         Task<UserViewModel> GetUserById(int id);
-        Task<bool> Update(UserViewModel userViewModel);
+        Task<bool> Update(EditUserViewModel userViewModel);
     }
 }

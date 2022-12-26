@@ -32,7 +32,7 @@ namespace ProductsAPI.Service.UserService
             return model;
         }
 
-        public async Task<bool> Update(UserViewModel formData)
+        public async Task<bool> Update(EditUserViewModel formData)
         {
             var user = this._context.Users.Where(u => u.Id == formData.Id).FirstOrDefault();
 

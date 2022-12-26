@@ -1,0 +1,44 @@
+.product{
+    position: relative;
+    height: 70vh;
+}
+
+.heart-empty{
+    color:#0d6efd;
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
+
+.heart-fill{
+    color: rgb(255, 1, 81);
+    position: absolute;
+    right: 20px;
+    top: 40px;
+}
+
+.fav-btn{
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.product-description{
+    color: black;
+}
+
+.product:hover{
+    border-color: #0d6efd !important;
+}
+
+.product:hover .heart-empty{
+    display: block !important;
+}
+
+.product:hover .heart-fill{
+    display: block !important;
+}
+
+.product:hover .quick-view{
+    display: block !important;
+}

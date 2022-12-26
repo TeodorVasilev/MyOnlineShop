@@ -44,19 +44,11 @@ namespace ProductsAPI.Service.ProductService
 
             var product = products.Where(p => p.Id == productId).FirstOrDefault();
 
-            if (product == null)
+            if (product != null)
             {
-                product = this._context.Products.Where(p => p.Id == productId).FirstOrDefault();
-
                 var cartProduct = new Cart { UserId = user.Id, ProductId = product.Id };
 
                 user.CartProducts.Add(cartProduct);
-            }
-            else
-            {
-                var carProduct = user.CartProducts.Where(p => p.ProductId == productId).FirstOrDefault();
-
-                user.CartProducts.Remove(carProduct);
             }
 
             _context.SaveChanges();
@@ -66,6 +58,9 @@ namespace ProductsAPI.Service.ProductService
         }//
         //
         //
+
+        //remove from cart
+
         public ProductListViewModel GetUserCart(int userId)
         {
             var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).FirstOrDefault();

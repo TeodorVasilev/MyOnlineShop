@@ -59,7 +59,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser(UserViewModel formData)
+        public async Task<IActionResult> UpdateUser(EditUserViewModel formData)
         {
             //return updated user
             return Ok(await this._userService.Update(formData));

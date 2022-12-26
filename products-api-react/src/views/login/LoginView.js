@@ -6,15 +6,44 @@ import * as actions from "../../actions/AuthActions";
 import Constants from "../../constants/Constants";
 import { Redirect, withRouter } from "react-router-dom";
 import { CheckLg } from "react-bootstrap-icons";
+import jwt_decode from "jwt-decode";
+import { Link } from "react-router-dom";
 
 class LoginView extends React.Component {
     constructor(props) {
         super(props);
+        this.checkIfUserIsLogged();
     }
 
     state = {
         email: "",
         password: "",
+    }
+
+    checkIfUserIsLogged = () => {
+        try {
+            const token = localStorage.getItem('token');
+            const decoded = jwt_decode(token);
+
+            if (token !== null) {
+                fetch(Constants.BASE_URL + `User?id=${decoded.UserId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        this.props.setAuthState(true);
+                        this.props.setUser({
+                            ...response
+                        });
+                    })
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     loginAttempt = (event) => {
@@ -32,8 +61,10 @@ class LoginView extends React.Component {
         })
             .then(response => response.json())
             .then(response => {
-                localStorage.setItem('token', response.token);
-                this.props.setAuthState(true);
+                if(response.token){
+                    localStorage.setItem('token', response.token);
+                    this.props.setAuthState(true);
+                }
             })
     }
 
@@ -97,7 +128,7 @@ class LoginView extends React.Component {
                             </ul>
                         </div>
                         <div>
-                            <button class="btn btn-primary mt-2" type="submit">Register</button>
+                            <Link to="/register" class="btn btn-primary mt-2" type="submit">Register</Link>
                         </div>
                     </div>
                 </div>
@@ -115,7 +146,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         setAuthState: actions.setAuthState,
-        setUser: actions.setUser
+        setUser: actions.setUser,
     }, dispatch)
 }
 
