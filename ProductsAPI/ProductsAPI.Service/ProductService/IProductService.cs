@@ -9,10 +9,10 @@ namespace ProductsAPI.Service.ProductService
         void Create(ProductViewModel formData);
         void Update(int id, ProductViewModel formData);//
         void Delete(int id);
-
-        Task<List<int>> AddToCart(int userId, int productId);
+        Task<List<int>> AddToCart(int userId, int productId, int quantity);
+        Task<List<int>> RemoveFromCart(int userId, int productId);
         Task<List<int>> ToggleFavoriteProduct(int userId, int productId);
-        ProductListViewModel GetUserCart(int userId);
+        List<ProductViewModel> GetUserCart(int userId);
         ProductListViewModel GetUserFavoriteProducts(int id);
         ProductListViewModel GetPaginatedProducts(FilterViewModel filters);
         ProductViewModel GetProductById(int id);

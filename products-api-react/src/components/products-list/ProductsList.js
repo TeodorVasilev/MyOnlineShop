@@ -40,8 +40,6 @@ class ProductsList extends React.Component {
     }
 
     render() {
-        let active = this.state.currentPage;
-
         return (
             <div>
                 <div class="row gx-3">

@@ -81,8 +81,8 @@ class TopLayout extends React.Component {
                     </li>
                 </ul>;
 
-                favoritesCnt = this.props.layout.user.favoriteIds.length;
-                cartCnt = this.props.layout.user.cartIds.length;
+                favoritesCnt = this.props.layout.user.favoriteIds !== undefined ? this.props.layout.user.favoriteIds.length : false;    
+                cartCnt = this.props.layout.user.cartIds !== undefined ? this.props.layout.user.cartIds.length : false;
 
                 favoritesCnt != 0 ?  showFavoritesBadge = true : showFavoritesBadge = false;
                 cartCnt != 0 ? showCartBadge = true : showCartBadge = false;
@@ -125,7 +125,7 @@ class TopLayout extends React.Component {
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid container-xxl">
                         <div className="me-auto d-flex align-items-center">
-                            <a className="navbar-brand logo" href="#"><span className="logo-my">My</span>OnlineShop</a>
+                            <Link className="navbar-brand logo" to="/"><span className="logo-my">My</span>OnlineShop</Link>
                             <div className="slogan">
                                 Only
                                 <br></br>
@@ -164,7 +164,7 @@ class TopLayout extends React.Component {
                                         </Link>
                                     </li>
                                     <li className="nav-item ms-4">
-                                        <Link className="position-relative nav-link d-flex flex-column align-items-center mt-1">
+                                        <Link className="position-relative nav-link d-flex flex-column align-items-center mt-1" to="/cart">
                                             <CartFill size={23}></CartFill>
                                             <span className="nav-link-text">Cart</span>
                                             <span style={{display: showCartBadge ? 'block' : 'none' }} className="position-absolute top-0 start-50 badge rounded-pill bg-danger">

@@ -1,6 +1,13 @@
 const INITIAL_STATE = {
     isLogged: false,
-    user: {},
+    user: {
+        id: null,
+        firstName: null,
+        lastName: null,
+        email: null,
+        favoriteIds: [],
+        cartIds: []
+    },
 }
 
 const LayoutReducer = (state = INITIAL_STATE, action) => {

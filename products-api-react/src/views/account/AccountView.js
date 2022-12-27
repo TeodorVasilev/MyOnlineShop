@@ -2,6 +2,8 @@ import React from "react";
 import * as actions from "../../actions/AuthActions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { Redirect, withRouter } from "react-router-dom";
+import TopLayout from "../../layout/TopLayout";
 
 class AccountView extends React.Component{
     constructor(props){
@@ -9,8 +11,16 @@ class AccountView extends React.Component{
     }
 
     render(){
+        if(this.props.layout.isLogged === false){
+            return <Redirect to="/login"></Redirect>
+        }
+
         return(
-            <div>Account page</div>
+            <TopLayout>
+                <div className="container mt-4">
+                    Account page
+                </div>
+            </TopLayout>
         );
     }
 }
@@ -28,4 +38,4 @@ const mapDispatchToProps = dispatch => {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountView);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AccountView));

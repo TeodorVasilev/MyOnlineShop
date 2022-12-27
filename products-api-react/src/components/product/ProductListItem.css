@@ -7,14 +7,28 @@
     color:#0d6efd;
     position: absolute;
     right: 20px;
-    top: 40px;
+    top: 30px;
 }
 
 .heart-fill{
     color: rgb(255, 1, 81);
     position: absolute;
     right: 20px;
-    top: 40px;
+    top: 30px;
+}
+
+.cart-empty{
+    color:#0d6efd;
+    position: absolute;
+    right: 20px;
+    top: 72px;
+}
+
+.cart-fill{
+    color: #198754;
+    position: absolute;
+    right: 20px;
+    top: 72px;
 }
 
 .fav-btn{
@@ -36,6 +50,14 @@
 }
 
 .product:hover .heart-fill{
+    display: block !important;
+}
+
+.product:hover .cart-empty{
+    display: block !important;
+}
+
+.product:hover .cart-fill{
     display: block !important;
 }
 

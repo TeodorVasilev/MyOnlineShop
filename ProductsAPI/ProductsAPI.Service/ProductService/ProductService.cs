@@ -6,13 +6,13 @@ using ProductsAPI.DAL.ViewModels.Account;
 
 namespace ProductsAPI.Service.ProductService
 {
-    public class ProductService : IProductService 
+    public class ProductService : IProductService
     {
         private int perPage = 4;
         private readonly ProductsDbContext _context;
         public ProductService(ProductsDbContext context)
         {
-           this._context = context;
+            this._context = context;
         }
         public async Task<List<int>> ToggleFavoriteProduct(int userId, int productId)
         {
@@ -36,50 +36,62 @@ namespace ProductsAPI.Service.ProductService
             var favoriteIds = user.Favorites.Select(p => p.Id).ToList();
             return favoriteIds;
         }
-        //
-        public async Task<List<int>> AddToCart(int userId, int productId)//
+
+        public async Task<List<int>> AddToCart(int userId, int productId, int quantity)
         {
-            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).FirstOrDefault();
-            var products = user.CartProducts.Select(c => c.Product).ToList();
+            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).FirstOrDefault();
 
-            var product = products.Where(p => p.Id == productId).FirstOrDefault();
+            var cartProduct = this._context.Carts.Where(c => c.UserId == userId && c.ProductId == productId).FirstOrDefault();
 
-            if (product != null)
+            if (cartProduct != null)
             {
-                var cartProduct = new Cart { UserId = user.Id, ProductId = product.Id };
+                cartProduct.Quantity += quantity;
+            }
+            else
+            {
+                var product = this._context.Products.Where(p => p.Id == productId).FirstOrDefault();
 
-                user.CartProducts.Add(cartProduct);
+                var cartProductToAdd = new Cart { UserId = user.Id, ProductId = product.Id, Quantity = quantity };
+
+                user.CartProducts.Add(cartProductToAdd);
             }
 
             _context.SaveChanges();
 
             var cartProducts = user.CartProducts.Select(p => p.ProductId).ToList();
             return cartProducts;
-        }//
-        //
-        //
+        }
 
-        //remove from cart
-
-        public ProductListViewModel GetUserCart(int userId)
+        public async Task<List<int>> RemoveFromCart(int userId, int productId)
         {
             var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).FirstOrDefault();
+
+            var cartProduct = this._context.Carts.Where(c => c.UserId == userId && c.ProductId == productId).FirstOrDefault();
+            this._context.Carts.Remove(cartProduct);
+
+            this._context.SaveChanges();
+
+            var cartProducts = user.CartProducts.Select(p => p.ProductId).ToList();
+            return cartProducts;
+        }
+
+        public List<ProductViewModel> GetUserCart(int userId)
+        {
+            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).FirstOrDefault();
+            var cartProducts = user.CartProducts.ToList();
             var products = user.CartProducts.Select(c => c.Product).ToList();
 
-            var productsModel = products.Select(p => new ProductViewModel
+            var productsList = products.Select(p => new ProductViewModel
             {
                 Id = p.Id,
                 Name = p.Name,
                 Price = p.Price,
-                Quantity = p.Quantity,
+                Quantity = cartProducts.Where(cp => cp.ProductId == p.Id).FirstOrDefault().Quantity,
                 Description = p.Description,
                 CategoryId = p.CategoryId
             }).ToList();
 
-            var model = new ProductListViewModel();
-            model.Products = productsModel;
-
-            return model;
+            return productsList;
         }
         //
         public ProductListViewModel GetUserFavoriteProducts(int userId)
@@ -104,12 +116,12 @@ namespace ProductsAPI.Service.ProductService
         public ProductViewModel GetProductById(int id)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
-            
-            if(product == null)
+
+            if (product == null)
             {
                 return null;
             }
-            
+
             var model = new ProductViewModel();
 
             model.Id = id;
@@ -171,7 +183,7 @@ namespace ProductsAPI.Service.ProductService
             }
 
             return query;
-        } 
+        }
         public double GetTotalPages(int categoryId = 0, decimal priceFrom = 0, decimal priceTo = 0)
         {
             IQueryable<Product> query;
@@ -201,7 +213,7 @@ namespace ProductsAPI.Service.ProductService
             }
 
             product.Name = formData.Name;
-            product.Price = formData.Price; 
+            product.Price = formData.Price;
             product.Description = formData.Description;
             product.Quantity = formData.Quantity;
             product.CategoryId = formData.CategoryId;
@@ -212,7 +224,7 @@ namespace ProductsAPI.Service.ProductService
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
 
-            if(product == null)
+            if (product == null)
             {
                 throw new Exception();
             }

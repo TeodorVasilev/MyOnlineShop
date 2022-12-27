@@ -32,14 +32,21 @@ namespace ProductsAPI.Controllers
 
         [HttpPost]
         [Route("AddToCart")]
-        public async Task<List<int>> AddToCart(ToggleFavoriteViewModel favModel)
+        public async Task<List<int>> AddToCart(AddToCartViewModel addModel)
         {
-            return await this._productService.AddToCart(favModel.UserId, favModel.ProductId);
+            return await this._productService.AddToCart(addModel.UserId, addModel.ProductId, addModel.Quantity);
+        }
+
+        [HttpPost]
+        [Route("RemoveFromCart")]
+        public async Task<List<int>> RemoveFromCart(ToggleFavoriteViewModel favModel)
+        {
+            return await this._productService.RemoveFromCart(favModel.UserId, favModel.ProductId);
         }
 
         [HttpGet]
         [Route("UserCart")]
-        public ProductListViewModel GetUserCart(int userId)
+        public List<ProductViewModel> GetUserCart(int userId)
         {
             return this._productService.GetUserCart(userId);
         }

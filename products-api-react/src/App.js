@@ -4,6 +4,7 @@ import HomeView from "./views/home/HomeView";
 import LoginView from "./views/login/LoginView";
 import RegisterView from "./views/register/RegisterView";
 import AccountView from "./views/account/AccountView";
+import CartView from "./views/cart/CartView";
 
 class App extends React.Component {
 
@@ -21,6 +22,8 @@ class App extends React.Component {
           <Route path="/register" component={RegisterView}>
           </Route>
           <Route path="/account" component={AccountView}>
+          </Route>
+          <Route path="/cart" component={CartView}>
           </Route>
       </Switch>
     );
