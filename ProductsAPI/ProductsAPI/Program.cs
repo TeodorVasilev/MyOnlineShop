@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProductsAPI.DAL.Data;
 using ProductsAPI.DAL.JWT;
 using ProductsAPI.DAL.Models.Account;
+using ProductsAPI.Service.CartService;
 using ProductsAPI.Service.CategoryService;
 using ProductsAPI.Service.LoginService;
 using ProductsAPI.Service.ProductService;
@@ -64,6 +65,7 @@ builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 var app = builder.Build();
 

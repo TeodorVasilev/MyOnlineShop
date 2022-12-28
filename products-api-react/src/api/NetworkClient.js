@@ -2,12 +2,15 @@ import Constants from "../constants/Constants";
 
 class NetworkClient {
 
-    get(url, params) {
+    get(url) {
         return this.request({
             url,
-            params,
             method: 'GET',
         })
+    }
+
+    post(url){
+        
     }
 
 
@@ -20,22 +23,20 @@ class NetworkClient {
         const token = localStorage.getItem('token');
 
         const data = Object.assign({
-            //url,
             method: options.method,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : 'Berarer ' + token
+                'Authorization' : 'Bearer ' + token
             },
         }, options);
 
         return new Promise((resolve, reject) => {
-
-            fetch(data)
-                .then((response) => {
+            fetch(options.url, data)
+                .then(response => {
                     if(options.success){
-                        options.success(response.data)
+                        options.success(response);
                     }
-                    resolve(response.data);
+                    resolve(response);
                 })
                 .catch((error) => {
                     if(options.failure){

@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProductsAPI.DAL.Data;
-using ProductsAPI.DAL.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.DAL.ViewModels;
 using ProductsAPI.Service.ProductService;
 
@@ -37,7 +31,7 @@ namespace ProductsAPI.Controllers
         public async Task<IActionResult> Create(ProductViewModel formData)
         {
             _productService.Create(formData);
-            return CreatedAtAction(nameof(GetProductById), new { id = formData.Id }, formData);//tova moje li da e v service
+            return CreatedAtAction(nameof(GetProductById), new { id = formData.Id }, formData);
         }
 
         [HttpPut("{id}")]

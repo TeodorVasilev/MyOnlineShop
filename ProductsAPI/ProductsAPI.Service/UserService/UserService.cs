@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProductsAPI.DAL.Data;
-using ProductsAPI.DAL.Models.Account;
 using ProductsAPI.DAL.ViewModels;
 using ProductsAPI.DAL.ViewModels.Account;
 
@@ -21,13 +20,17 @@ namespace ProductsAPI.Service.UserService
             var user = await this._context.Users.Where(u => u.Id == id).Include(p => p.Favorites).Include(u => u.CartProducts).FirstOrDefaultAsync();
 
             var model = new UserViewModel();
+            var cartModel = new LayoutCartViewModel();
 
             model.Id = user.Id;
             model.Email = user.Email;
             model.FirstName = user.FirstName;
             model.LastName = user.LastName;
             model.FavoriteIds = user.Favorites.Select(p => p.Id).ToList();
-            model.CartIds = user.CartProducts.Select(p => p.ProductId).ToList();
+            //cartService get cart
+            cartModel.ProductIds = user.CartProducts.Select(p => p.ProductId).ToList();
+            cartModel.Quantity = user.CartProducts.Select(p => p.Quantity).Sum();
+            model.Cart = cartModel;
 
             return model;
         }

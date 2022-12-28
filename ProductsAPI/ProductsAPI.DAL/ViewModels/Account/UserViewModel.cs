@@ -7,6 +7,6 @@
         public string LastName { get; set; }
         public string Email { get; set; }
         public List<int>? FavoriteIds { get; set; }
-        public List<int>? CartIds { get; set; }
+        public LayoutCartViewModel Cart { get; set; }
     }
 }

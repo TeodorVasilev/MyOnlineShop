@@ -2,3 +2,17 @@
     width: 110px;
     height: 110px;
 }
+
+.quantity-field{
+    width: 2rem;
+}
+
+.cart-item:last-child{
+    border: none !important;
+}
+
+.remove-btn{
+    border: none;
+    background: none;
+    text-decoration: underline;
+}

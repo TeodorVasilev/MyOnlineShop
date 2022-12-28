@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProductsAPI.DAL.Data;
-using ProductsAPI.DAL.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.DAL.ViewModels;
 using ProductsAPI.Service.CategoryService;
 
@@ -20,7 +15,7 @@ namespace ProductsAPI.Controllers
             this._categoryService = categoryService;
         }
 
-        [HttpGet]      //koi trqbva da budat async i koi ne?
+        [HttpGet]
         public async Task<IEnumerable<CategoryViewModel>> GetCategories(int categoryId = 0, string? name = null)
         {
             return _categoryService.GetCategories(categoryId, name);
@@ -36,7 +31,7 @@ namespace ProductsAPI.Controllers
         public async Task<IActionResult> Create(CategoryViewModel formData)
         {
             _categoryService.Create(formData);
-            return CreatedAtAction(nameof(GetCategoryById), new { id = formData.Id }, formData); //tova moje li da e v service
+            return CreatedAtAction(nameof(GetCategoryById), new { id = formData.Id }, formData);
         }
         
         [HttpPut("{id}")]

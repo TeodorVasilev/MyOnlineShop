@@ -1,4 +1,5 @@
 import React from "react";
+import NetworkClient from "../../api/NetworkClient";
 import Constants from "../../constants/Constants";
 import ProductsListItem from "../product/ProductListItem";
 
@@ -18,25 +19,20 @@ class ProductsList extends React.Component {
         event.preventDefault();
         this.setState({
             currentPage: page
-        }, function (){
+        }, function () {
             this.loadProducts();
         })
     }
 
     loadProducts = () => {
-        fetch(Constants.BASE_URL + 'Products' + `?CurrentPage=${this.state.currentPage}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
+        NetworkClient.get(Constants.BASE_URL + 'Products' + `?CurrentPage=${this.state.currentPage}`)
             .then(response => response.json())
             .then(response => {
                 this.setState({
                     products: response.products,
                     pages: Array.from({ length: response.totalPages }, (_, i) => i + 1)
                 })
-            })
+            });
     }
 
     render() {
@@ -54,7 +50,7 @@ class ProductsList extends React.Component {
                             {this.state.pages.map(page =>
                                 <li className="page-item">
                                     <a className={`page-link`}
-                                        onClick={(e) => this.changePage(e,page)}
+                                        onClick={(e) => this.changePage(e, page)}
                                         href="#">
                                         {page}
                                     </a>

@@ -14,6 +14,7 @@ namespace ProductsAPI.Service.ProductService
         {
             this._context = context;
         }
+        //
         public async Task<List<int>> ToggleFavoriteProduct(int userId, int productId)
         {
             var user = _context.Users.Where(u => u.Id == userId).Include(u => u.Favorites).FirstOrDefault();
@@ -36,64 +37,6 @@ namespace ProductsAPI.Service.ProductService
             var favoriteIds = user.Favorites.Select(p => p.Id).ToList();
             return favoriteIds;
         }
-
-        public async Task<List<int>> AddToCart(int userId, int productId, int quantity)
-        {
-            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).FirstOrDefault();
-
-            var cartProduct = this._context.Carts.Where(c => c.UserId == userId && c.ProductId == productId).FirstOrDefault();
-
-            if (cartProduct != null)
-            {
-                cartProduct.Quantity += quantity;
-            }
-            else
-            {
-                var product = this._context.Products.Where(p => p.Id == productId).FirstOrDefault();
-
-                var cartProductToAdd = new Cart { UserId = user.Id, ProductId = product.Id, Quantity = quantity };
-
-                user.CartProducts.Add(cartProductToAdd);
-            }
-
-            _context.SaveChanges();
-
-            var cartProducts = user.CartProducts.Select(p => p.ProductId).ToList();
-            return cartProducts;
-        }
-
-        public async Task<List<int>> RemoveFromCart(int userId, int productId)
-        {
-            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).FirstOrDefault();
-
-            var cartProduct = this._context.Carts.Where(c => c.UserId == userId && c.ProductId == productId).FirstOrDefault();
-            this._context.Carts.Remove(cartProduct);
-
-            this._context.SaveChanges();
-
-            var cartProducts = user.CartProducts.Select(p => p.ProductId).ToList();
-            return cartProducts;
-        }
-
-        public List<ProductViewModel> GetUserCart(int userId)
-        {
-            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).FirstOrDefault();
-            var cartProducts = user.CartProducts.ToList();
-            var products = user.CartProducts.Select(c => c.Product).ToList();
-
-            var productsList = products.Select(p => new ProductViewModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                Quantity = cartProducts.Where(cp => cp.ProductId == p.Id).FirstOrDefault().Quantity,
-                Description = p.Description,
-                CategoryId = p.CategoryId
-            }).ToList();
-
-            return productsList;
-        }
-        //
         public ProductListViewModel GetUserFavoriteProducts(int userId)
         {
             var user = _context.Users.Where(u => u.Id == userId).Include(u => u.Favorites).FirstOrDefault();
@@ -113,6 +56,7 @@ namespace ProductsAPI.Service.ProductService
 
             return model;
         }
+        //
         public ProductViewModel GetProductById(int id)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == id);

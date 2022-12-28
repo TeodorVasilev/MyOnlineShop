@@ -6,7 +6,11 @@ const INITIAL_STATE = {
         lastName: null,
         email: null,
         favoriteIds: [],
-        cartIds: []
+        cart: {
+            productIds: [],
+            quantity: null,
+            totalPrice: null
+        }
     },
 }
 

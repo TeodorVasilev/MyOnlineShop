@@ -18,7 +18,7 @@ class ProductsListItem extends React.Component {
     toggleFavorites = () => {
         const token = localStorage.getItem('token');
 
-        fetch(Constants.BASE_URL + 'User/ToggleFavorites', {
+        fetch(Constants.BASE_URL + 'Favorites/ToggleFavorites', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
@@ -40,7 +40,7 @@ class ProductsListItem extends React.Component {
     addToCart = () => {
         const token = localStorage.getItem('token');
 
-        fetch(Constants.BASE_URL + 'User/AddToCart', {
+        fetch(Constants.BASE_URL + 'Cart/AddToCart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ class ProductsListItem extends React.Component {
         .then(response => {
             this.props.setUser({
                 ...this.props.layout.user,
-                cartIds: response
+                cart: response
             })
         })
     }
@@ -71,7 +71,7 @@ class ProductsListItem extends React.Component {
                 favoriteButton = <button onClick={this.toggleFavorites} className="heart-empty d-none fav-btn"><Heart size={32}></Heart></button>
             }
 
-            if(this.props.layout.user.cartIds.includes(this.props.id)){
+            if(this.props.layout.user.cart.productIds.includes(this.props.id)){
                 addToCartButton = <button onClick={this.addToCart} className="cart-fill d-none fav-btn"><CartPlusFill size={32}></CartPlusFill></button>
             } else {
                 addToCartButton = <button onClick={this.addToCart} className="cart-empty d-none fav-btn"><CartPlus size={32}></CartPlus></button>

@@ -1,6 +1,6 @@
 ﻿namespace ProductsAPI.DAL.ViewModels
 {
-    public class AddToCartViewModel
+    public class UpdateCartViewModel
     {
         public int UserId { get; set; }
         public int ProductId { get; set; }
