@@ -4,6 +4,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import TopLayout from "../../layout/TopLayout";
+import Constants from "../../constants/Constants";
+import NetworkClient from "../../api/NetworkClient";
 
 class AccountView extends React.Component {
     constructor(props) {
@@ -11,12 +13,34 @@ class AccountView extends React.Component {
     }
 
     state = {
+        id: this.props.layout.user.id,
         firstName: null,
         lastName: null,
         email: null,
         oldPassword: null,
         newPassword: null,
     }
+
+    updateUser = (event) => {
+        event.preventDefault();
+        const token = localStorage.getItem('token');
+        const data = {
+            ...this.state
+        }
+        fetch(Constants.BASE_URL + 'User/UpdateUser', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(data)
+        })
+        .then(respone => respone.json())
+        .then(response => {
+            console.log(response);
+        })
+    }
+
 
     render() {
         if (this.props.layout.isLogged === false) {
@@ -36,7 +60,7 @@ class AccountView extends React.Component {
                     </div>
                     <div>
                         <div className="w-50">
-                            <form method="POST">
+                            <form method="PUT" onSubmit={this.updateUser}>
                                 <div className="mb-3">
                                     <label for="firstName" className="form-label">First name</label>
                                     <input

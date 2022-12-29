@@ -77,9 +77,10 @@ class ProductsListItem extends React.Component {
                 addToCartButton = <button onClick={this.addToCart} className="cart-empty d-none fav-btn"><CartPlus size={32}></CartPlus></button>
             }
         }
-
+        
+        const width = `col-${this.props.width}`
         return (
-            <div class="col-3">
+            <div class={width}>
                 <div class="product border rounded">
                     {favoriteButton}
                     {addToCartButton}
@@ -112,7 +113,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        setUser: actions.setUser,
+        setUser: actions.setUser
     }, dispatch)
 }
 

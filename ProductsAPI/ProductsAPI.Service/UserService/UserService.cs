@@ -77,8 +77,6 @@ namespace ProductsAPI.Service.UserService
             this._context.Entry(user).State = EntityState.Modified;
             this._context.SaveChanges();
 
-            //return updated user
-
             return true;
         }
     }

@@ -5,6 +5,7 @@ import LoginView from "./views/login/LoginView";
 import RegisterView from "./views/register/RegisterView";
 import AccountView from "./views/account/AccountView";
 import CartView from "./views/cart/CartView";
+import ProductsView from "./views/products/ProductsView";
 
 class App extends React.Component {
 
@@ -16,6 +17,8 @@ class App extends React.Component {
     return (
       <Switch>
           <Route exact path="/" component={HomeView}>
+          </Route>
+          <Route path="/products" component={ProductsView}>
           </Route>
           <Route path="/login" component={LoginView}>
           </Route>

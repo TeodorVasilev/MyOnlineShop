@@ -9,25 +9,18 @@ class NetworkClient {
         })
     }
 
-    post(url){
-        
-    }
-
-
     request = async(options = {}) => {
         if(!options.url) {
             console.log('URL is required');
             return;
         }
-
         const token = localStorage.getItem('token');
-
         const data = Object.assign({
             method: options.method,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : 'Bearer ' + token
-            },
+                'Authorization': 'Bearer ' + token
+            }
         }, options);
 
         return new Promise((resolve, reject) => {

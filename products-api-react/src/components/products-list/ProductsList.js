@@ -2,6 +2,7 @@ import React from "react";
 import NetworkClient from "../../api/NetworkClient";
 import Constants from "../../constants/Constants";
 import ProductsListItem from "../product/ProductListItem";
+import { connect } from "react-redux";
 
 class ProductsList extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class ProductsList extends React.Component {
     state = {
         products: [],
         pages: [],
-        currentPage: 1
+        currentPage: 1,
     }
 
     changePage = (event, page) => {
@@ -23,9 +24,11 @@ class ProductsList extends React.Component {
             this.loadProducts();
         })
     }
-
+    
     loadProducts = () => {
-        NetworkClient.get(Constants.BASE_URL + 'Products' + `?CurrentPage=${this.state.currentPage}`)
+        console.log(this.props.category.id);
+        NetworkClient.get(Constants.BASE_URL + 'Products' + 
+            `?CurrentPage=${this.state.currentPage}&CategoryId=0&PriceFrom=0&PriceTo=0&Order=0`)
             .then(response => response.json())
             .then(response => {
                 this.setState({
@@ -40,7 +43,7 @@ class ProductsList extends React.Component {
             <div>
                 <div class="row gx-3">
                     {this.state.products.map(product =>
-                        <ProductsListItem {...product} key={product.id} ></ProductsListItem>
+                        <ProductsListItem {...product} key={product.id} width={this.props.width}></ProductsListItem>
                     )}
                 </div>
                 <div className="d-flex justify-content-center mt-4">
@@ -65,4 +68,10 @@ class ProductsList extends React.Component {
     }
 }
 
-export default ProductsList;
+const mapStateToProps = state => {
+    return {
+        category: state.category
+    }
+};
+
+export default connect(mapStateToProps)(ProductsList);

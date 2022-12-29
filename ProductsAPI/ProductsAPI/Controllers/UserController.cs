@@ -29,6 +29,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPut]
+        [Route("UpdateUser")]
         public async Task<IActionResult> UpdateUser(EditUserViewModel formData)
         {
             //return updated user
