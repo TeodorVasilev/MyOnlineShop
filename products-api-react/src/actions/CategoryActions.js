@@ -1,3 +1,3 @@
-export function setCategory (value) {
-    return {type: 'Category', payload: value}
+export function setCategory(value) {
+    return { type: 'Category', payload: value }
 }

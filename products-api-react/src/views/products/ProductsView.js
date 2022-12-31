@@ -31,7 +31,7 @@ class ProductsView extends React.Component{
                                 </div>
                             </div>
                             <div>
-                                <ProductsList width={4} category={this.props.category.id}></ProductsList>
+                                <ProductsList width={4}></ProductsList>
                             </div>
                         </div>
                     </div>

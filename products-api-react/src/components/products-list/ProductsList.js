@@ -1,48 +1,43 @@
 import React from "react";
-import NetworkClient from "../../api/NetworkClient";
-import Constants from "../../constants/Constants";
 import ProductsListItem from "../product/ProductListItem";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "../../actions/ProductActions";
 
 class ProductsList extends React.Component {
     constructor(props) {
         super(props)
-        this.loadProducts();
-    }
-
-    state = {
-        products: [],
-        pages: [],
-        currentPage: 1,
     }
 
     changePage = (event, page) => {
         event.preventDefault();
-        this.setState({
-            currentPage: page
-        }, function () {
-            this.loadProducts();
-        })
+        const data = {
+            categoryId: this.props.category.id,
+            page
+        }
+
+        this.loadProducts(data);
     }
-    
-    loadProducts = () => {
-        console.log(this.props.category.id);
-        NetworkClient.get(Constants.BASE_URL + 'Products' + 
-            `?CurrentPage=${this.state.currentPage}&CategoryId=0&PriceFrom=0&PriceTo=0&Order=0`)
-            .then(response => response.json())
-            .then(response => {
-                this.setState({
-                    products: response.products,
-                    pages: Array.from({ length: response.totalPages }, (_, i) => i + 1)
-                })
-            });
+
+    componentDidMount(){       
+        const data = {
+            categoryId: this.props.category.id,
+            page: 1
+        }
+
+        this.loadProducts(data);
+    }
+
+    loadProducts = (data) =>{
+        this.props.setProducts(data);
     }
 
     render() {
+        console.log(this.props.products);
         return (
             <div>
                 <div class="row gx-3">
-                    {this.state.products.map(product =>
+                    {this.props.products.products.map(product =>
                         <ProductsListItem {...product} key={product.id} width={this.props.width}></ProductsListItem>
                     )}
                 </div>
@@ -50,7 +45,7 @@ class ProductsList extends React.Component {
                     <nav aria-label="Page navigation example">
                         <ul className="pagination">
                             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            {this.state.pages.map(page =>
+                            {this.props.products.pages.map(page =>
                                 <li className="page-item">
                                     <a className={`page-link`}
                                         onClick={(e) => this.changePage(e, page)}
@@ -70,8 +65,14 @@ class ProductsList extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        products: state.products,
         category: state.category
     }
 };
 
-export default connect(mapStateToProps)(ProductsList);
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        setProducts: actions.setProducts,
+    }, dispatch)
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ProductsList);

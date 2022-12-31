@@ -1,12 +1,12 @@
 const INITIAL_STATE = {
-        id: 0,
-        name: 'All Products'
+    id: 0,
+    name: 'All Products',
 }
 
 const CategoryReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'Category':
-            return { ...state, id: action.payload.id, name: action.payload.name }
+            return { ...state, id: action.payload.categoryId, name: action.payload.categoryName }
         default:
             return state;
     }

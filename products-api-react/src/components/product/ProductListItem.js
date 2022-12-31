@@ -78,7 +78,7 @@ class ProductsListItem extends React.Component {
             }
         }
         
-        const width = `col-${this.props.width}`
+        const width = `col-${this.props.width} pb-3`
         return (
             <div class={width}>
                 <div class="product border rounded">

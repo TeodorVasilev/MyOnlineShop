@@ -3,6 +3,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../actions/CategoryActions"
+import * as productActions from "../../actions/ProductActions"
 import { Link } from "react-router-dom";
 
 
@@ -12,12 +13,17 @@ class CategoryButton extends React.Component {
     }
 
     selectCategory = () => {
-
-
         this.props.setCategory({
-            id: this.props.id,
-            name: this.props.name
-        });
+            categoryId: this.props.id,
+            categoryName: this.props.name
+        })
+
+        const data = {
+            categoryId: this.props.id,
+            page: 1
+        }
+
+        this.props.setProducts(data);
     }
 
     render() {
@@ -34,13 +40,14 @@ class CategoryButton extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        category: state.category
+        products: state.products
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         setCategory: actions.setCategory,
+        setProducts: productActions.setProducts
     }, dispatch)
 }
 
