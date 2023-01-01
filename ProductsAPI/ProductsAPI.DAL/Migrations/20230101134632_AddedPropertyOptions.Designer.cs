@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductsAPI.DAL.Data;
 
@@ -11,9 +12,10 @@ using ProductsAPI.DAL.Data;
 namespace ProductsAPI.DAL.Migrations
 {
     [DbContext(typeof(ProductsDbContext))]
-    partial class ProductsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230101134632_AddedPropertyOptions")]
+    partial class AddedPropertyOptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,21 +142,6 @@ namespace ProductsAPI.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OptionProduct", b =>
-                {
-                    b.Property<int>("OptionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OptionsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OptionProduct");
-                });
-
             modelBuilder.Entity("OptionProperty", b =>
                 {
                     b.Property<int>("OptionsId")
@@ -218,14 +205,14 @@ namespace ProductsAPI.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "590fa8c5-8443-4d65-8bcc-48f92045dac3",
+                            ConcurrencyStamp = "1319321a-ac1c-466c-a63d-d74af8f91932",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "450e637b-e655-4a7c-83e9-2611e4c00f77",
+                            ConcurrencyStamp = "0bddf6b9-b3d3-4a23-8c86-ea10e172d359",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -380,7 +367,7 @@ namespace ProductsAPI.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Options");
+                    b.ToTable("Option");
                 });
 
             modelBuilder.Entity("ProductsAPI.DAL.Models.Products.Product", b =>
@@ -485,7 +472,7 @@ namespace ProductsAPI.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Property");
                 });
 
             modelBuilder.Entity("ApiUserProduct", b =>
@@ -550,21 +537,6 @@ namespace ProductsAPI.DAL.Migrations
                     b.HasOne("ProductsAPI.DAL.Models.Account.ApiUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OptionProduct", b =>
-                {
-                    b.HasOne("ProductsAPI.DAL.Models.Products.Option", null)
-                        .WithMany()
-                        .HasForeignKey("OptionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProductsAPI.DAL.Models.Products.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

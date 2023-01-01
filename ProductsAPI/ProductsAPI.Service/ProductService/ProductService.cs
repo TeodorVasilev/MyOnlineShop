@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductsAPI.DAL.Data;
 using ProductsAPI.DAL.Models;
+using ProductsAPI.DAL.Models.Products;
 using ProductsAPI.DAL.ViewModels;
 using ProductsAPI.DAL.ViewModels.Account;
 
@@ -115,13 +116,15 @@ namespace ProductsAPI.Service.ProductService
             {
                 query = query.Where(p => p.Price <= filters.PriceTo);
             }
-            //1 - lowest price first
-            //2 - hightest price first
-            if (filters.Order == 1)
+            //1 - newest first
+            //2 - lowest price first
+            //3 - hightest price first
+            
+            if (filters.Order == 2)
             {
                 query = query.OrderBy(p => p.Price);
             }
-            if (filters.Order == 2)
+            if (filters.Order == 3)
             {
                 query = query.OrderByDescending(p => p.Price);
             }

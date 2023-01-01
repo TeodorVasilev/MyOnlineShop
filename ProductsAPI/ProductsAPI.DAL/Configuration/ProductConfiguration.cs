@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProductsAPI.DAL.Models;
-using ProductsAPI.DAL.Models.Account;
+using ProductsAPI.DAL.Models.Products;
 
 namespace ProductsAPI.DAL.Configuration
 {

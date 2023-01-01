@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProductsAPI.DAL.Models.Products;
 
 namespace ProductsAPI.DAL.Models.Account
 {

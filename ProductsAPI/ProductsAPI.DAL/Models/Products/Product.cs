@@ -1,6 +1,6 @@
 ﻿using ProductsAPI.DAL.Models.Account;
 
-namespace ProductsAPI.DAL.Models
+namespace ProductsAPI.DAL.Models.Products
 {
     public class Product
     {
@@ -13,6 +13,8 @@ namespace ProductsAPI.DAL.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
 
+        public ICollection<Option> Options { get; set; }
+        public ICollection<Property> Properties { get; set; }
         public ICollection<ApiUser> ApiUsers { get; set; }
         public ICollection <Cart> CartProducts{ get; set; }
     }

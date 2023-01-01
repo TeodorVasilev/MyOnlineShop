@@ -1,4 +1,5 @@
 ﻿using ProductsAPI.DAL.Models;
+using ProductsAPI.DAL.Models.Products;
 using ProductsAPI.DAL.ViewModels;
 using ProductsAPI.DAL.ViewModels.Account;
 

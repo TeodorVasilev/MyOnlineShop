@@ -1,4 +1,5 @@
 ﻿using ProductsAPI.DAL.Models.Account;
+using ProductsAPI.DAL.Models.Products;
 
 namespace ProductsAPI.DAL.Models
 {

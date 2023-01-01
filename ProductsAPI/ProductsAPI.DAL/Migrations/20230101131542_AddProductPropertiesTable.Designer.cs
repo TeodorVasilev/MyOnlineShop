@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductsAPI.DAL.Data;
 
@@ -11,9 +12,10 @@ using ProductsAPI.DAL.Data;
 namespace ProductsAPI.DAL.Migrations
 {
     [DbContext(typeof(ProductsDbContext))]
-    partial class ProductsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230101131542_AddProductPropertiesTable")]
+    partial class AddProductPropertiesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,36 +142,6 @@ namespace ProductsAPI.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OptionProduct", b =>
-                {
-                    b.Property<int>("OptionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OptionsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OptionProduct");
-                });
-
-            modelBuilder.Entity("OptionProperty", b =>
-                {
-                    b.Property<int>("OptionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertiesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OptionsId", "PropertiesId");
-
-                    b.HasIndex("PropertiesId");
-
-                    b.ToTable("OptionProperty");
-                });
-
             modelBuilder.Entity("ProductProperty", b =>
                 {
                     b.Property<int>("ProductsId")
@@ -218,14 +190,14 @@ namespace ProductsAPI.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "590fa8c5-8443-4d65-8bcc-48f92045dac3",
+                            ConcurrencyStamp = "5b23ed8f-9416-4af5-ab54-4e7ea2f3cad7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "450e637b-e655-4a7c-83e9-2611e4c00f77",
+                            ConcurrencyStamp = "043752be-0652-45e1-96f4-4a818032918f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -366,23 +338,6 @@ namespace ProductsAPI.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProductsAPI.DAL.Models.Products.Option", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Options");
-                });
-
             modelBuilder.Entity("ProductsAPI.DAL.Models.Products.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -485,7 +440,7 @@ namespace ProductsAPI.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Property");
                 });
 
             modelBuilder.Entity("ApiUserProduct", b =>
@@ -550,36 +505,6 @@ namespace ProductsAPI.DAL.Migrations
                     b.HasOne("ProductsAPI.DAL.Models.Account.ApiUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OptionProduct", b =>
-                {
-                    b.HasOne("ProductsAPI.DAL.Models.Products.Option", null)
-                        .WithMany()
-                        .HasForeignKey("OptionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProductsAPI.DAL.Models.Products.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OptionProperty", b =>
-                {
-                    b.HasOne("ProductsAPI.DAL.Models.Products.Option", null)
-                        .WithMany()
-                        .HasForeignKey("OptionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProductsAPI.DAL.Models.Products.Property", null)
-                        .WithMany()
-                        .HasForeignKey("PropertiesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

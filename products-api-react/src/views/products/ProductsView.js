@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import ProductsList from "../../components/products-list/ProductsList";
 import TopLayout from "../../layout/TopLayout";
 
-class ProductsView extends React.Component{
-    constructor(props){
+class ProductsView extends React.Component {
+    constructor(props) {
         super(props)
     }
-    
-    render(){
-        return(
+
+    render() {
+        return (
             <TopLayout>
                 <div className="container mt-4 border rounded">
                     <div className="row gx-3 pt-3">
@@ -21,14 +21,20 @@ class ProductsView extends React.Component{
                                 <div className="title">
                                     <h3>{this.props.category.name}</h3>
                                 </div>
-                                <div className="order-by">
-                                    <label>Order by: </label>
-                                    <select>
+                                <div className="order-by d-flex">
+                                    <label className="me-2">Order by:</label>
+                                    <select className="">
                                         <option>Newest</option>
                                         <option>Lowest price</option>
                                         <option>Highest price</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div className="per-page">
+                                <label>Per page:</label>
+                                <select>
+                                    <option>20</option>
+                                </select>
                             </div>
                             <div>
                                 <ProductsList width={4}></ProductsList>
