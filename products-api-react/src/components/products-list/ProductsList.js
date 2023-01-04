@@ -33,7 +33,6 @@ class ProductsList extends React.Component {
     }
 
     render() {
-        console.log(this.props.products);
         return (
             <div>
                 <div class="row gx-3">

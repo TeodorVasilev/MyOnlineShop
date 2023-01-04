@@ -28,6 +28,15 @@ namespace ProductsAPI.Controllers
             return await this._userService.GetUserById(id);
         }
 
+        [HttpGet]
+        [Route("GetUsers")]
+        [Authorize(Roles = "Admin")]
+        public async Task<List<UserViewModel>> GetUsers()
+        {
+            return await this._userService.GetUsers();
+        }
+            
+
         [HttpPut]
         [Route("UpdateUser")]
         public async Task<IActionResult> UpdateUser(EditUserViewModel formData)

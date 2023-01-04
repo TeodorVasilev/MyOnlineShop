@@ -6,6 +6,8 @@ import RegisterView from "./views/register/RegisterView";
 import AccountView from "./views/account/AccountView";
 import CartView from "./views/cart/CartView";
 import ProductsView from "./views/products/ProductsView";
+import AdminView from "./admin/views/AdminView";
+import UsersView from "./admin/views/UsersView";
 
 class App extends React.Component {
 
@@ -27,6 +29,10 @@ class App extends React.Component {
           <Route path="/account" component={AccountView}>
           </Route>
           <Route path="/cart" component={CartView}>
+          </Route>
+          <Route path="/admin" component={AdminView}>
+          </Route>
+          <Route path="/users" component={UsersView}>
           </Route>
       </Switch>
     );

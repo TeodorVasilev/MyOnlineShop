@@ -35,6 +35,23 @@ namespace ProductsAPI.Service.UserService
             return model;
         }
 
+        public async Task<List<UserViewModel>> GetUsers()
+        {   
+            var users = await this._context.Users.ToListAsync();
+            var model = new List<UserViewModel>();
+
+            model = users.Select(u => new UserViewModel
+            {
+                Id = u.Id,
+                Email = u.Email,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                
+            }).ToList();
+
+            return model;            
+        }
+
         public async Task<bool> Update(EditUserViewModel formData)
         {
             var user = this._context.Users.Where(u => u.Id == formData.Id).FirstOrDefault();

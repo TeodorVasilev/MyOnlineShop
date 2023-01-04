@@ -23,7 +23,6 @@ export const setProducts = (data) => async (dispatch) => {
         })
         .then(response => response.json())
         .then(response => {
-            console.log(response);
             dispatch(setProductsSuccess(response));
         });
 }
