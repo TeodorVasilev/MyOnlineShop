@@ -2,29 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 class UserListItem extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
-    render(){
+    render() {
         console.log(this.props);
-        return(
+        return (
             <tr>
-            <td>{this.props.user.id}</td>
-            <td>{this.props.user.email}</td>
-            <td>
-                <select>
-                    <option>Assign user to role</option>
-                </select>
-            </td>
-            <td>{`${this.props.user.firstName} ${this.props.user.lastName}`}</td>
-            <td>number of orders</td>
-            <td>
-                <Link>Edit</Link>
-                <span> / </span>
-                <Link className="text-danger">Delete</Link>
-            </td>
-        </tr>
+                <td>{this.props.user.id}</td>
+                <td>{this.props.user.email}</td>
+                <td>{`${this.props.user.firstName} ${this.props.user.lastName}`}</td>
+                <td>number of orders</td>
+                <td>
+                    <Link to={{ pathname: "/admin/user", state: { user: this.props.user.id } }}>Edit</Link>
+                    <span> / </span>
+                    <Link className="text-success">Orders</Link>
+                    <span> / </span>
+                    <Link className="text-danger">Delete</Link>
+                </td>
+            </tr>
         );
     }
 }

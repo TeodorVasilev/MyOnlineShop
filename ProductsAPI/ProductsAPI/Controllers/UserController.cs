@@ -35,7 +35,6 @@ namespace ProductsAPI.Controllers
         {
             return await this._userService.GetUsers();
         }
-            
 
         [HttpPut]
         [Route("UpdateUser")]

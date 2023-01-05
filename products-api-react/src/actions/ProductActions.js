@@ -12,7 +12,7 @@ export function setProductsSuccess(value){
 export const setProducts = (data) => async (dispatch) => {
         const url = Constants.BASE_URL + 
         'Products' + `?CurrentPage=${data.page}&CategoryId=${data.categoryId}
-        &PriceFrom=0&PriceTo=0&Order=0`;
+        &PriceFrom=0&PriceTo=0&Order=0&PerPage=4`;
 
         dispatch(setProductsRequest(true));
         await fetch(url,{

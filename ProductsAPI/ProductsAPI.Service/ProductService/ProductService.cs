@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductsAPI.DAL.Data;
-using ProductsAPI.DAL.Models;
 using ProductsAPI.DAL.Models.Products;
 using ProductsAPI.DAL.ViewModels;
-using ProductsAPI.DAL.ViewModels.Account;
 
 namespace ProductsAPI.Service.ProductService
 {
     public class ProductService : IProductService
     {
-        private int perPage = 4;
         private readonly ProductsDbContext _context;
         public ProductService(ProductsDbContext context)
         {
@@ -85,7 +82,7 @@ namespace ProductsAPI.Service.ProductService
             var query = _context.Products.AsQueryable();
             query = FilterQuery(query, filters);
 
-            var products = query.Skip((page - 1) * this.perPage).Take(this.perPage)
+            var products = query.Skip((page - 1) * filters.PerPage).Take(filters.PerPage)
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -98,7 +95,7 @@ namespace ProductsAPI.Service.ProductService
 
             var model = new ProductListViewModel();
             model.Products = products;
-            model.TotalPages = this.GetTotalPages(filters.CategoryId, filters.PriceFrom, filters.PriceTo);
+            model.TotalPages = this.GetTotalPages(filters.CategoryId, filters.PriceFrom, filters.PriceTo, filters.PerPage);
 
             return model;
         }
@@ -119,7 +116,7 @@ namespace ProductsAPI.Service.ProductService
             //1 - newest first
             //2 - lowest price first
             //3 - hightest price first
-            
+
             if (filters.Order == 2)
             {
                 query = query.OrderBy(p => p.Price);
@@ -131,7 +128,7 @@ namespace ProductsAPI.Service.ProductService
 
             return query;
         }
-        public double GetTotalPages(int categoryId = 0, decimal priceFrom = 0, decimal priceTo = 0)
+        public double GetTotalPages(int categoryId = 0, decimal priceFrom = 0, decimal priceTo = 0, int perPage = 0)
         {
             IQueryable<Product> query;
 
@@ -146,30 +143,54 @@ namespace ProductsAPI.Service.ProductService
                 query = query.Where(p => p.Price <= priceTo);
 
             double totalProducts = query.Count();
-            double pages = totalProducts / this.perPage;
+            double pages = totalProducts / perPage;
             pages = Math.Ceiling(pages);
             return pages;
         }
-        public void Update(int id, ProductViewModel formData)
+        public async Task<ProductViewModel> Update(ProductViewModel formData)
         {
-            var product = GetProductById(id);
+            var product = this._context.Products.Where(p => p.Id == formData.Id).FirstOrDefault();
 
             if (product == null)
             {
                 throw new Exception();
             }
+            if (formData.Name != "")
+            {
+                product.Name = formData.Name;
+            }
+            if (formData.Description != "")
+            {
+                product.Description = formData.Description;
+            }
+            if (formData.Price != 0 && formData.Price > 0)
+            {
+                product.Price = formData.Price;
+            }
+            if (formData.Quantity >= 0)
+            {
+                product.Quantity = formData.Quantity;
+            }
+            if (formData.CategoryId != 0 && formData.CategoryId > 0)
+            {
+                product.CategoryId = formData.CategoryId;
+            }
 
-            product.Name = formData.Name;
-            product.Price = formData.Price;
-            product.Description = formData.Description;
-            product.Quantity = formData.Quantity;
-            product.CategoryId = formData.CategoryId;
+            this._context.Entry(product).State = EntityState.Modified;
+            this._context.SaveChanges();
 
-            _context.SaveChanges();
+            return new ProductViewModel
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                Quantity = product.Quantity,
+                CategoryId = product.CategoryId
+            };
         }
         public void Delete(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = this._context.Products.FirstOrDefault(p => p.Id == id);
 
             if (product == null)
             {

@@ -1,7 +1,7 @@
 import React from "react";
-import Constants from "../../constants/Constants";
-import UserListItem from "../components/UserListItem";
-import AdminLayout from "../layout/AdminLayout";
+import Constants from "../../../constants/Constants";
+import UserListItem from "../../components/UserListItem";
+import AdminLayout from "../../layout/AdminLayout";
 
 class UsersView extends React.Component {
     constructor(props) {
@@ -48,7 +48,6 @@ class UsersView extends React.Component {
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Role</th>
                             <th scope="col">Name</th>
                             <th scope="col">Orders</th>
                             <th scope="col">Actions</th>

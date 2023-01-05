@@ -7,7 +7,11 @@ import AccountView from "./views/account/AccountView";
 import CartView from "./views/cart/CartView";
 import ProductsView from "./views/products/ProductsView";
 import AdminView from "./admin/views/AdminView";
-import UsersView from "./admin/views/UsersView";
+import UsersView from "./admin/views/users/UsersView";
+import EditUserView from "./admin/views/users/EditUserView";
+import AllProductsView from "./admin/views/products/AllProductsView";
+import EditProductView from "./admin/views/products/EditProductView";
+import CreateProductView from "./admin/views/products/CreateProductView";
 
 class App extends React.Component {
 
@@ -30,9 +34,17 @@ class App extends React.Component {
           </Route>
           <Route path="/cart" component={CartView}>
           </Route>
-          <Route path="/admin" component={AdminView}>
+          <Route path="/admin/user" component={EditUserView}>
           </Route>
-          <Route path="/users" component={UsersView}>
+          <Route path="/admin/users" component={UsersView}>
+          </Route>
+          <Route path="/admin/product" component={EditProductView}>
+          </Route>
+          <Route path="/admin/products" component={AllProductsView}>
+          </Route>
+          <Route path="/admin/createproduct" component={CreateProductView}>
+          </Route>
+          <Route path="/admin" component={AdminView}>
           </Route>
       </Switch>
     );

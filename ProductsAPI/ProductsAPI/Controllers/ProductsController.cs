@@ -28,17 +28,18 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPost]
+        [Route("Create")]
         public async Task<IActionResult> Create(ProductViewModel formData)
         {
             _productService.Create(formData);
             return CreatedAtAction(nameof(GetProductById), new { id = formData.Id }, formData);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, ProductViewModel formData)
+        [HttpPut]
+        [Route("Update")]
+        public async Task<ProductViewModel> Update(ProductViewModel formData)
         {
-            _productService.Update(id, formData);
-            return NoContent();
+            return await _productService.Update(formData);
         }
 
         [HttpDelete("{id}")]

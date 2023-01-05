@@ -1,5 +1,5 @@
 import React from "react";
-import {HouseDoorFill, Speedometer, ListColumnsReverse, PeopleFill, Clipboard2CheckFill} from "react-bootstrap-icons";
+import {HouseDoorFill, Speedometer, ListColumnsReverse, PeopleFill, Clipboard2CheckFill, Sliders2Vertical} from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 class AdminLayout extends React.Component {
@@ -23,17 +23,22 @@ class AdminLayout extends React.Component {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a class="nav-link px-0 align-middle">
+                                    <Link to="/admin" class="nav-link px-0 align-middle">
                                         <Speedometer/> <span class="ms-1 d-none d-sm-inline">Dashboard</span> 
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a class="nav-link px-0 align-middle">
+                                    <Link to="/admin/products" class="nav-link px-0 align-middle">
                                         <ListColumnsReverse/> <span class="ms-1 d-none d-sm-inline">Products</span> 
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link className="nav-link px-0 align-middle" to="/users">
+                                    <Link class="nav-link px-0 align-middle">
+                                        <Sliders2Vertical/> <span class="ms-1 d-none d-sm-inline">Props and Options</span> 
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link px-0 align-middle" to="/admin/users">
                                         <PeopleFill/> <span class="ms-1 d-none d-sm-inline">Users</span> 
                                     </Link>
                                 </li>
