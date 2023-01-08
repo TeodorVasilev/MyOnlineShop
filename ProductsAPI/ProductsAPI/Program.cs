@@ -7,7 +7,9 @@ using ProductsAPI.DAL.Models.Account;
 using ProductsAPI.Service.CartService;
 using ProductsAPI.Service.CategoryService;
 using ProductsAPI.Service.LoginService;
+using ProductsAPI.Service.OptionService;
 using ProductsAPI.Service.ProductService;
+using ProductsAPI.Service.PropertyService;
 using ProductsAPI.Service.RegisterService;
 using ProductsAPI.Service.RoleService;
 using ProductsAPI.Service.UserService;
@@ -66,6 +68,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
+builder.Services.AddScoped<IOptionService, OptionService>();
 
 var app = builder.Build();
 

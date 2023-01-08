@@ -33,8 +33,8 @@ class AdminLayout extends React.Component {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link class="nav-link px-0 align-middle">
-                                        <Sliders2Vertical/> <span class="ms-1 d-none d-sm-inline">Props and Options</span> 
+                                    <Link to="/admin/properties" class="nav-link px-0 align-middle">
+                                        <Sliders2Vertical/> <span class="ms-1 d-none d-sm-inline">Product properties</span> 
                                     </Link>
                                 </li>
                                 <li>

@@ -12,6 +12,8 @@ import EditUserView from "./admin/views/users/EditUserView";
 import AllProductsView from "./admin/views/products/AllProductsView";
 import EditProductView from "./admin/views/products/EditProductView";
 import CreateProductView from "./admin/views/products/CreateProductView";
+import PropertiesView from "./admin/views/properties/PropertiesView";
+import EditPropertyView from "./admin/views/properties/EditPropertyView";
 
 class App extends React.Component {
 
@@ -43,6 +45,10 @@ class App extends React.Component {
           <Route path="/admin/products" component={AllProductsView}>
           </Route>
           <Route path="/admin/createproduct" component={CreateProductView}>
+          </Route>
+          <Route path="/admin/properties" component={PropertiesView}>
+          </Route>
+          <Route path="/admin/property" component={EditPropertyView}>
           </Route>
           <Route path="/admin" component={AdminView}>
           </Route>

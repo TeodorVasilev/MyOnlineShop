@@ -1,4 +1,5 @@
 import React from "react";
+import { ThreeDotsVertical } from "react-bootstrap-icons";
 import Constants from "../../../constants/Constants";
 import AdminLayout from "../../layout/AdminLayout";
 
@@ -8,7 +9,7 @@ class EditProductView extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.loadProduct();
         this.loadCategories();
     }
@@ -37,11 +38,11 @@ class EditProductView extends React.Component {
                 'Authorization': 'Bearer ' + token
             }
         }).then(response => response.json())
-        .then(response => {
-            this.setState({
-                categories: response
+            .then(response => {
+                this.setState({
+                    categories: response
+                })
             })
-        })
     }
 
     loadProduct = () => {
@@ -69,24 +70,23 @@ class EditProductView extends React.Component {
         fetch(Constants.BASE_URL + `Products/Update`, {
             method: 'PUT',
             headers: {
-                'Content-Type' : 'application/json',
-                'Authorization' : 'Bearer ' + token
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(data)
         }).then(response => response.json())
-        .then(response => {
-            console.log(response);
-        })
+            .then(response => {
+                console.log(response);
+            })
     }
 
     render() {
-        console.log(this.state.product);
         return (
             <AdminLayout>
                 <div>
                     <form onSubmit={e => this.updateProduct(e)}>
                         <div className="row">
-                        <div className="col-3">
+                            <div className="col-3">
                                 <div class="mb-3">
                                     <label class="form-label">Product ID:</label>
                                     <input readOnly defaultValue={this.state.product.id} type="text" class="form-control" placeholder="Product name" />
@@ -95,23 +95,23 @@ class EditProductView extends React.Component {
                             <div className="col-3">
                                 <div class="mb-3">
                                     <label class="form-label">Product name:</label>
-                                    <input defaultValue={this.state.product.name} type="text" 
-                                    class="form-control" placeholder="Product name" 
-                                    onChange={(e) => this.setState({product: {...this.state.product, name: e.target.value }})}/>
+                                    <input defaultValue={this.state.product.name} type="text"
+                                        class="form-control" placeholder="Product name"
+                                        onChange={(e) => this.setState({ product: { ...this.state.product, name: e.target.value } })} />
                                 </div>
                             </div>
                             <div className="col-3">
                                 <div class="mb-3">
                                     <label class="form-label">Product price:</label>
-                                    <input defaultValue={this.state.product.price} type="number" class="form-control" placeholder="Product name" 
-                                    onChange={(e) => this.setState({product: {...this.state.product, price: e.target.value }})}/>
+                                    <input defaultValue={this.state.product.price} type="number" class="form-control" placeholder="Product name"
+                                        onChange={(e) => this.setState({ product: { ...this.state.product, price: e.target.value } })} />
                                 </div>
                             </div>
                             <div className="col-3">
                                 <div class="mb-3">
                                     <label class="form-label">Product quantity:</label>
-                                    <input defaultValue={this.state.product.quantity} type="number" class="form-control" placeholder="Product name" 
-                                    onChange={(e) => this.setState({product: {...this.state.product, quantity: e.target.value }})}/>
+                                    <input defaultValue={this.state.product.quantity} type="number" class="form-control" placeholder="Product name"
+                                        onChange={(e) => this.setState({ product: { ...this.state.product, quantity: e.target.value } })} />
                                 </div>
                             </div>
                             <div className="col-3">
@@ -130,7 +130,7 @@ class EditProductView extends React.Component {
                                 <div class="mb-3">
                                     <label class="form-label">Product description:</label>
                                     <textarea defaultValue={this.state.product.description} type="text" class="form-control" placeholder="Product name"
-                                    onChange={(e) => this.setState({product: {...this.state.product, description: e.target.value }})}/>
+                                        onChange={(e) => this.setState({ product: { ...this.state.product, description: e.target.value } })} />
                                 </div>
                             </div>
                             <div className="col-3">
