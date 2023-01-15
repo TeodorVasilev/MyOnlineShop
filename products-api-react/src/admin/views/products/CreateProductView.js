@@ -1,6 +1,7 @@
 import React from "react";
 import AdminLayout from "../../layout/AdminLayout";
 import Constants from "../../../constants/Constants";
+import PropertySelect from "../../components/PropertySelect";
 
 class CreateProductView extends React.Component {
     constructor(props) {
@@ -14,13 +15,35 @@ class CreateProductView extends React.Component {
             price: "",
             quantity: "",
             description: "",
-            categoryId: 0
-        }
+            categoryId: 0,
+            properties: [{}]
+        },
+        properties: [],
+        propertySelectComponents: [[]]
     }
 
     componentDidMount() {
         this.loadCategories();
+        this.loadProperties();
     }
+
+    loadProperties = () => {
+        const token = localStorage.getItem('token');
+        fetch(Constants.BASE_URL + 'Properties', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            }
+        }).then(response => response.json())
+            .then(response => {
+                this.setState({
+                    ...this.state,
+                    properties: response
+                })
+            })
+    }
+    
 
     loadCategories = () => {
         const token = localStorage.getItem('token');
@@ -43,7 +66,6 @@ class CreateProductView extends React.Component {
         e.preventDefault();
         const token = localStorage.getItem('token');
         const data = this.state.product;
-        console.log(data);
         fetch(Constants.BASE_URL + `Products/Create`, {
             method: 'POST',
             headers: {
@@ -57,29 +79,60 @@ class CreateProductView extends React.Component {
             })
     }
 
+    propertyChange = () => {
+
+    }
+
+    handleAddPropertySelect = (e) => {
+        e.preventDefault();
+        this.setState(state => {
+            const id = state.propertySelectComponents.length;
+            const propertySelectComponents = [...state.propertySelectComponents, 
+            <div className="col-md-3" key={id}>
+                <PropertySelect properties={state.properties}
+                propertyChange={this.propertyChange}
+                removePropertySelect={this.handleRemovePropertySelect}
+                selectPropertyCnt={this.state.propertySelectComponents.length}
+                id={id}
+                />
+            </div>]
+            return { propertySelectComponents }
+        });
+    }
+
+    handleRemovePropertySelect = (e, id) => {
+        e.preventDefault();
+        this.setState(state => {
+            const propertySelectComponents = state.propertySelectComponents.map((component, index) => {
+                if (index !== id) {
+                    return component;
+                }
+            });
+            return { propertySelectComponents };
+        });
+    }
+
     render() {
         return (
             <AdminLayout>
                 <form onSubmit={this.createProduct}>
-                    <div className="form-row">
-                        <div className="form-group col-md-6">
+                    <div className="row">
+                        <div className="form-group col-md-2">
                             <label htmlFor="productName">Product Name</label>
                             <input type="text" className="form-control" id="productName"
                                 value={this.state.product.name}
                                 onChange={e => this.setState({ product: { ...this.state.product, name: e.target.value } })} />
                         </div>
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-2">
                             <label htmlFor="productPrice">Product Price</label>
                             <input type="number" className="form-control" id="productPrice"
                                 value={this.state.product.price}
                                 onChange={e => this.setState({ product: { ...this.state.product, price: e.target.value } })} />
                         </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-3">
                             <label htmlFor="productCategory">Product Category</label>
                             <select className="form-control" id="productCategory"
-                            onChange={e => this.setState({product: {...this.state.product, categoryId: e.target.value}})}>
+                                onChange={e => this.setState({ product: { ...this.state.product, categoryId: e.target.value } })}>
                                 {this.state.categories.map(category => (
                                     <option key={category.id} value={category.id}>
                                         {category.name}
@@ -87,20 +140,26 @@ class CreateProductView extends React.Component {
                                 ))}
                             </select>
                         </div>
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-2">
                             <label htmlFor="productQuantity">Product Quantity</label>
                             <input type="number" className="form-control" id="productQuantity"
                                 value={this.state.product.quantity}
                                 onChange={e => this.setState({ product: { ...this.state.product, quantity: e.target.value } })} />
                         </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="productDescription">Product Description</label>
+                            <textarea className="form-control" id="productDescription" rows="3"
+                                value={this.state.product.description}
+                                onChange={e => this.setState({ product: { ...this.state.product, description: e.target.value } })}></textarea>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="productDescription">Product Description</label>
-                        <textarea className="form-control" id="productDescription" rows="3"
-                            value={this.state.product.description}
-                            onChange={e => this.setState({ product: { ...this.state.product, description: e.target.value } })}></textarea>
+                    <div className="row">
+                            {this.state.propertySelectComponents.map(propertySelectComponent => propertySelectComponent)}
                     </div>
-                    <button type="submit" className="btn btn-primary">Add Product</button>
+                    <div className="form-group col-4">
+                                <button className="btn btn-success" onClick={this.handleAddPropertySelect}>AddProperty</button>
+                    </div>
+                    <button type="submit" className="btn btn-primary mt-5">Add Product</button>
                 </form>
             </AdminLayout>
         );

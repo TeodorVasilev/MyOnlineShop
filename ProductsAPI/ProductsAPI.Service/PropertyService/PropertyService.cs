@@ -45,7 +45,11 @@ namespace ProductsAPI.Service.PropertyService
 
         public async Task<List<PropertyViewModel>> GetProperties()
         {
-            var properties = this._context.Properties.Select(p => new PropertyViewModel() { Id = p.Id, Name = p.Name}).ToList();
+            var properties = this._context.Properties.Include(p => p.Options)
+                .Select(p =>
+                new PropertyViewModel() { Id = p.Id, Name = p.Name, Options = p.Options
+                .Select(o => new OptionViewModel() {Id = o.Id, Name = o.Name, IsSelected = true}).ToList()})
+                .ToList();
             return properties;
         }
 
@@ -60,18 +64,44 @@ namespace ProductsAPI.Service.PropertyService
 
             return new PropertyViewModel()
             {
-                Id = id,
+                Id = property.Id,
                 Name = property.Name,
-                Options = property.Options.Select(o => new OptionViewModel() { Id = o.Id, Name = o.Name }).ToList()
+                Options = property.Options.Select(o => new OptionViewModel() { Id = o.Id, Name = o.Name, IsSelected = true }).ToList()
             };
         }
 
-        public Task<PropertyViewModel> Update(PropertyViewModel formData)
+        public async Task<PropertyViewModel> Update(PropertyViewModel formData)
         {
-            //var property = this._context.Properties.Where(p => p.Id == formData.Id).Include(p => p.Options).FirstOrDefault();
+            var property = this._context.Properties.Where(p => p.Id == formData.Id).Include(p => p.Options).FirstOrDefault();
 
-            //property.Name = formData.Name;
-            throw new NotImplementedException();
+            if (property == null)
+            {
+                throw new Exception();
+            }
+
+            if (formData.Name == null || formData.Name.Length < 3)
+            {
+                throw new ArgumentException();
+            }
+
+            property.Name = formData.Name;
+
+            var selectedOptionsIds = formData.Options.Select(o => o.Id).ToList();
+            var newOptions = this._context.Options.Where(o => selectedOptionsIds.Contains(o.Id)).ToList();
+
+            property.Options = newOptions;
+
+            this._context.Entry(property).State = EntityState.Modified;
+            this._context.SaveChanges();
+
+            var model = new PropertyViewModel()
+            {
+                Id = property.Id,
+                Name = property.Name,
+                Options = property.Options.Select(o => new OptionViewModel() { Id = o.Id, Name = o.Name, IsSelected = true }).ToList()
+            };
+
+            return model;
         }
     }
 }

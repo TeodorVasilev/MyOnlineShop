@@ -9,14 +9,18 @@ class EditPropertyView extends React.Component {
     }
 
     state = {
-        property: {},
+        property: {
+            id: 0,
+            name: '',
+            options: []
+        },
         options: [],
         optionName: ''
     }
 
-    loadProperty = () => {
+    loadProperty = (id) => {
         const token = localStorage.getItem('token');
-        fetch(Constants.BASE_URL + `Properties/${this.props.location.state.id}`, {
+        fetch(Constants.BASE_URL + `Properties/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,6 +28,7 @@ class EditPropertyView extends React.Component {
             }
         }).then(response => response.json())
             .then(response => {
+                console.log(response)
                 this.setState({
                     property: response
                 })
@@ -36,11 +41,11 @@ class EditPropertyView extends React.Component {
         fetch(Constants.BASE_URL + `Options/${id}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type' : 'application/json',
-                'Authorization' : 'Bearer ' + token
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             }
         }).then(response => {
-            this.loadOptions();
+            this.loadOptions(this.state.property.id);
         })
     }
 
@@ -55,13 +60,13 @@ class EditPropertyView extends React.Component {
             },
             body: JSON.stringify({ name: this.state.optionName })
         }).then(response => {
-            this.loadOptions();
+            this.loadOptions(this.state.property.id);
         })
     }
 
-    loadOptions = () => {
+    loadOptions = (id) => {
         const token = localStorage.getItem('token');
-        fetch(Constants.BASE_URL + 'Options', {
+        fetch(Constants.BASE_URL + `Options/?propertyId=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,9 +81,49 @@ class EditPropertyView extends React.Component {
             })
     }
 
+    toggleOption(id) {
+        let option = this.state.options.find(o => o.id == id);
+        if(this.state.property.options.find(o => o.id == id)){
+            this.setState({
+                ...this.state,
+                property: {
+                    ...this.state.property,
+                    options: [...this.state.property.options.filter(o => o.id !== id)]
+                }
+            })
+        } else {
+            let option = this.state.options.find(o => o.id == id);
+            this.setState({
+                ...this.state,
+                property: {
+                    ...this.state.property,
+                    options: [...this.state.property.options, option]
+                }
+            })
+        }
+    }
+
+    updateProperty = () => {
+        const data = this.state.property;
+        const token = localStorage.getItem('token');
+        console.log(data);
+
+        fetch(Constants.BASE_URL + 'Properties', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' + token
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+        .then(response => {
+            console.log(response);
+        })
+    }
+
     componentDidMount() {
-        this.loadProperty();
-        this.loadOptions();
+        this.loadProperty(this.props.location.state.id);
+        this.loadOptions(this.props.location.state.id);
     }
 
     render() {
@@ -87,7 +132,11 @@ class EditPropertyView extends React.Component {
                 <div className="row">
                     <div className="col-6">
                         <div>
-                            <h1>Property: {this.state.property.name}</h1>
+                            <h1>Property: 
+                                <input defaultValue={this.state.property.name} onChange={e => this.setState({
+                                    ...this.state, property: {...this.state.property, name: e.target.value}
+                                })}/>
+                            </h1>
                         </div>
                         <div>
                             <h3>Create new property option</h3>
@@ -111,7 +160,7 @@ class EditPropertyView extends React.Component {
                             <p>You can assign options to property in when you check the option in the list</p>
                         </div>
                     </div>
-                    <div className="col-5 border">
+                    <div className="col-5 border" style={{ overflow: 'auto', maxHeight: '45vh' }}>
                         <h3>Options List</h3>
                         <table class="table table-striped table-sm">
                             <thead>
@@ -128,7 +177,7 @@ class EditPropertyView extends React.Component {
                                         <td>{option.id}</td>
                                         <td>{option.name}</td>
                                         <td>
-                                            <input type="checkbox" />
+                                            <input type="checkbox" defaultChecked={option.isSelected} onChange={() => this.toggleOption(option.id)} />
                                         </td>
                                         <td>
                                             <Link >Edit</Link>
@@ -139,6 +188,9 @@ class EditPropertyView extends React.Component {
                                 )}
                             </tbody>
                         </table>
+                    </div>
+                    <div>
+                        <button className="btn btn-success" onClick={this.updateProperty}>Save Changes</button>
                     </div>
                 </div>
             </AdminLayout>

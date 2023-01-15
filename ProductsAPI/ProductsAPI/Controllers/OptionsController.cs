@@ -24,9 +24,9 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<OptionViewModel>> GetOptions()
+        public async Task<List<OptionViewModel>> GetOptions(int propertyId)
         {
-            return await this._optionService.GetOptions();
+            return await this._optionService.GetOptions(propertyId);
         }
 
         [HttpPost]

@@ -41,7 +41,7 @@ namespace ProductsAPI.Controllers
         [HttpPut]
         public async Task<PropertyViewModel> Update(PropertyViewModel formData)
         {
-            throw new NotImplementedException();
+            return await this._propertyService.Update(formData);
         }
 
         [HttpDelete("{id}")]

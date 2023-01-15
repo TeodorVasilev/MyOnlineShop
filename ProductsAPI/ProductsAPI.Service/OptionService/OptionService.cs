@@ -1,4 +1,5 @@
-﻿using ProductsAPI.DAL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductsAPI.DAL.Data;
 using ProductsAPI.DAL.Models.Products;
 using ProductsAPI.DAL.ViewModels.Option;
 
@@ -41,9 +42,23 @@ namespace ProductsAPI.Service.OptionService
             this._context.SaveChanges();
         }
 
-        public async Task<List<OptionViewModel>> GetOptions()
+        public async Task<List<OptionViewModel>> GetOptions(int propertyId)
         {
-            return this._context.Options.Select(p => new OptionViewModel() { Id = p.Id, Name = p.Name }).ToList();
+            var property = this._context.Properties.Where(p => p.Id == propertyId).Include(p => p.Options).FirstOrDefault();
+            var propertyOptions = property.Options.ToList();
+            var model = this._context.Options.Select(o => new OptionViewModel() { Id = o.Id, Name = o.Name }).ToList();
+            foreach (var option in model)
+            {
+                foreach (var propOption in propertyOptions)
+                {
+                    if (option.Id == propOption.Id)
+                    {
+                        option.IsSelected = true;
+                    }
+                }
+            }
+
+            return model;
         }
 
         public Task<OptionViewModel> GetOptionById(int id)
