@@ -7,12 +7,44 @@ class PropertySelect extends React.Component {
 
     state = {
         options: [],
+        selectedProperty: {
+            id: 0,
+            selectedOptions: []
+        }
     }
 
     handlePropertyChange = (e) => {
         let properties = this.props.properties;
         let selectedProperty = properties.find(property => property.id == e.target.value);
-        this.setState({ options: selectedProperty.options });
+        this.setState({ options: selectedProperty.options,
+                        selectedProperty: {
+                            id: e.target.value,
+                            selectedOptions: []
+                        }
+        });
+    }
+
+    toggleOption = (e) => {
+        let option = e.target.value;
+        let selectedOptions = [...this.state.selectedProperty.selectedOptions];
+        let index = selectedOptions.indexOf(option);
+        if (index !== -1) {
+            selectedOptions.splice(index, 1);
+        } else {
+            selectedOptions.push(option);
+        }
+
+        this.setState({
+            options: [...this.state.options],
+            selectedProperty: {
+                ...this.state.selectedProperty,
+                selectedOptions: selectedOptions
+            }
+        }, this.addProperty)
+    }
+
+    addProperty = () => {
+        this.props.addProperty(this.state.selectedProperty);
     }
 
     render() {
@@ -27,12 +59,12 @@ class PropertySelect extends React.Component {
                 {this.state.options.map(option => {
                     return <div>
                         <label>{option.name}</label>
-                        <input type="checkbox"></input>
+                        <input type="checkbox" value={option.id} onClick={e => this.toggleOption(e)}></input>
                     </div>
                 })}
                 <div>
                 { this.props.selectPropertyCnt > 1 && 
-                <button className="btn btn-danger" onClick={e => this.props.removePropertySelect(e, this.props.id)}>-</button> }
+                <button className="btn btn-danger" onClick={e => this.props.removePropertySelect(e, this.props.id, this.state.selectedProperty.id)}>-</button> }
                 </div>
             </div>
         );

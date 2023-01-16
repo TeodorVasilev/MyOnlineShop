@@ -16,7 +16,7 @@ class CreateProductView extends React.Component {
             quantity: "",
             description: "",
             categoryId: 0,
-            properties: [{}]
+            properties: []
         },
         properties: [],
         propertySelectComponents: [[]]
@@ -79,9 +79,49 @@ class CreateProductView extends React.Component {
             })
     }
 
-    propertyChange = () => {
-
+    addProperty = (property) => {
+        console.log(property);
+        let prop = this.state.product.properties.find(p => p.id == property.id);
+        console.log(prop);
+        console.log(this.state.product.properties.includes(prop));
+        if(this.state.product.properties.includes(prop)){
+            let updatedProperties = this.state.product.properties.map(p => {
+                if (p.id === prop.id) {
+                    return {...p, selectedOptions: property.selectedOptions ? property.selectedOptions : p.selectedOptions }
+                } else {
+                    return p;
+                }
+            });
+            this.setState({
+                ...this.state,
+                product: {
+                    ...this.state.product,
+                    properties: updatedProperties
+                }
+            });
+        } else {
+            this.setState({
+                ...this.state,
+                product: {
+                    ...this.state.product,
+                    properties: [...this.state.product.properties, property]
+                }
+            })
+        }
     }
+
+    // removeProperty = (id) => {
+    //     //remove property
+    //     let index = this.state.product.properties.findIndex(prop => prop.id == id);
+    //     let updatedProperties = this.state.product.properties.splice(index, 1);
+    //     this.setState({
+    //         ...this.state,
+    //         product: {
+    //             ...this.state.product,
+    //             properties: updatedProperties
+    //         }
+    //     });
+    // }
 
     handleAddPropertySelect = (e) => {
         e.preventDefault();
@@ -90,7 +130,8 @@ class CreateProductView extends React.Component {
             const propertySelectComponents = [...state.propertySelectComponents, 
             <div className="col-md-3" key={id}>
                 <PropertySelect properties={state.properties}
-                propertyChange={this.propertyChange}
+                addProperty={this.addProperty}
+                removeProperty={this.removeProperty}
                 removePropertySelect={this.handleRemovePropertySelect}
                 selectPropertyCnt={this.state.propertySelectComponents.length}
                 id={id}
@@ -100,19 +141,21 @@ class CreateProductView extends React.Component {
         });
     }
 
-    handleRemovePropertySelect = (e, id) => {
+    handleRemovePropertySelect = (e, componentId, propertyId) => {
         e.preventDefault();
         this.setState(state => {
             const propertySelectComponents = state.propertySelectComponents.map((component, index) => {
-                if (index !== id) {
+                if (index !== componentId) {
                     return component;
                 }
             });
             return { propertySelectComponents };
         });
+        //this.removeProperty(propertyId);
     }
 
     render() {
+        console.log(this.state.product.properties);
         return (
             <AdminLayout>
                 <form onSubmit={this.createProduct}>
