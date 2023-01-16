@@ -17,6 +17,7 @@ class CreateProductView extends React.Component {
             description: "",
             categoryId: 0,
             properties: []
+            //selected options
         },
         properties: [],
         propertySelectComponents: [[]]
@@ -110,18 +111,16 @@ class CreateProductView extends React.Component {
         }
     }
 
-    // removeProperty = (id) => {
-    //     //remove property
-    //     let index = this.state.product.properties.findIndex(prop => prop.id == id);
-    //     let updatedProperties = this.state.product.properties.splice(index, 1);
-    //     this.setState({
-    //         ...this.state,
-    //         product: {
-    //             ...this.state.product,
-    //             properties: updatedProperties
-    //         }
-    //     });
-    // }
+    removeProperty = (id) => {
+        let updatedProperties = this.state.product.properties.filter(prop => prop.id !== id);
+        this.setState({
+            ...this.state,
+            product: {
+                ...this.state.product,
+                properties: updatedProperties
+            }
+        });
+    }
 
     handleAddPropertySelect = (e) => {
         e.preventDefault();
@@ -142,6 +141,7 @@ class CreateProductView extends React.Component {
     }
 
     handleRemovePropertySelect = (e, componentId, propertyId) => {
+        console.log(propertyId);
         e.preventDefault();
         this.setState(state => {
             const propertySelectComponents = state.propertySelectComponents.map((component, index) => {
@@ -150,12 +150,10 @@ class CreateProductView extends React.Component {
                 }
             });
             return { propertySelectComponents };
-        });
-        //this.removeProperty(propertyId);
+        }, this.removeProperty(propertyId));
     }
 
     render() {
-        console.log(this.state.product.properties);
         return (
             <AdminLayout>
                 <form onSubmit={this.createProduct}>
@@ -200,7 +198,7 @@ class CreateProductView extends React.Component {
                             {this.state.propertySelectComponents.map(propertySelectComponent => propertySelectComponent)}
                     </div>
                     <div className="form-group col-4">
-                                <button className="btn btn-success" onClick={this.handleAddPropertySelect}>AddProperty</button>
+                                <button className="btn btn-success mt-3" onClick={this.handleAddPropertySelect}>AddProperty</button>
                     </div>
                     <button type="submit" className="btn btn-primary mt-5">Add Product</button>
                 </form>

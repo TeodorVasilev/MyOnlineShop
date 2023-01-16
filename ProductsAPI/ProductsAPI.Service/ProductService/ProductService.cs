@@ -211,6 +211,9 @@ namespace ProductsAPI.Service.ProductService
                 CategoryId = formData.CategoryId,
             };
 
+            //productProperty
+            //productOptions
+
             _context.Products.Add(product);
             _context.SaveChanges();
         }

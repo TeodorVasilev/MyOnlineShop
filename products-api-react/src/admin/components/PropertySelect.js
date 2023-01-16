@@ -50,6 +50,7 @@ class PropertySelect extends React.Component {
     render() {
         return (
             <div>
+                <label>Property:</label>
                 <select className="form-control" onChange={this.handlePropertyChange}>
                     <option>Select property</option>
                     {this.props.properties.map(property => {
