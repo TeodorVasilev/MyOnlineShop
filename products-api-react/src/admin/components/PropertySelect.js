@@ -9,7 +9,7 @@ class PropertySelect extends React.Component {
         options: [],
         selectedProperty: {
             id: 0,
-            selectedOptions: []
+            options: []
         }
     }
 
@@ -19,26 +19,26 @@ class PropertySelect extends React.Component {
         this.setState({ options: selectedProperty.options,
                         selectedProperty: {
                             id: e.target.value,
-                            selectedOptions: []
+                            options: []
                         }
         });
     }
 
     toggleOption = (e) => {
         let option = e.target.value;
-        let selectedOptions = [...this.state.selectedProperty.selectedOptions];
+        let selectedOptions = [...this.state.selectedProperty.options];
         let index = selectedOptions.indexOf(option);
         if (index !== -1) {
             selectedOptions.splice(index, 1);
         } else {
-            selectedOptions.push(option);
+            selectedOptions.push({id: option});
         }
 
         this.setState({
             options: [...this.state.options],
             selectedProperty: {
                 ...this.state.selectedProperty,
-                selectedOptions: selectedOptions
+                options: selectedOptions
             }
         }, this.addProperty)
     }

@@ -2,6 +2,8 @@
 using ProductsAPI.DAL.Data;
 using ProductsAPI.DAL.Models.Products;
 using ProductsAPI.DAL.ViewModels;
+using ProductsAPI.DAL.ViewModels.Option;
+using ProductsAPI.DAL.ViewModels.Property;
 
 namespace ProductsAPI.Service.ProductService
 {
@@ -57,7 +59,8 @@ namespace ProductsAPI.Service.ProductService
         //
         public ProductViewModel GetProductById(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = _context.Products.Where(p => p.Id == id).Include(p => p.Properties).Include(p => p.Options)
+                .ThenInclude(o => o.Properties).FirstOrDefault();
 
             if (product == null)
             {
@@ -72,6 +75,13 @@ namespace ProductsAPI.Service.ProductService
             model.Description = product.Description;
             model.Quantity = product.Quantity;
             model.CategoryId = product.CategoryId;
+            model.Properties = product.Properties.Select(p => new PropertyViewModel()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Options = p.Options.Select(o => new OptionViewModel() { Id = o.Id, Name = o.Name, IsSelected = true}).ToList(),
+
+            }).ToList();
 
             return model;
         }
@@ -202,6 +212,21 @@ namespace ProductsAPI.Service.ProductService
         }
         public void Create(ProductViewModel formData)
         {
+            var properties = new List<Property>();
+            var options = new List<Option>();
+
+            foreach (var item in formData.Properties)
+            {
+                var property = this._context.Properties.Where(p => p.Id == item.Id).FirstOrDefault();
+                properties.Add(property);
+
+                foreach (var opt in item.Options)
+                {
+                    var option = this._context.Options.Where(o => o.Id == opt.Id).FirstOrDefault();
+                    options.Add(option);
+                }
+            }
+
             var product = new Product()
             {
                 Name = formData.Name,
@@ -209,10 +234,9 @@ namespace ProductsAPI.Service.ProductService
                 Description = formData.Description,
                 Quantity = formData.Quantity,
                 CategoryId = formData.CategoryId,
+                Properties = properties,
+                Options = options,
             };
-
-            //productProperty
-            //productOptions
 
             _context.Products.Add(product);
             _context.SaveChanges();

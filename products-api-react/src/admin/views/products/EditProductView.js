@@ -1,5 +1,4 @@
 import React from "react";
-import { ThreeDotsVertical } from "react-bootstrap-icons";
 import Constants from "../../../constants/Constants";
 import AdminLayout from "../../layout/AdminLayout";
 
@@ -17,6 +16,8 @@ class EditProductView extends React.Component {
     state = {
         product: {},
         categories: [],
+        properties: [],
+        propertySelectComponents: [[]]
     }
 
     changeCategory = (e) => {
@@ -26,6 +27,23 @@ class EditProductView extends React.Component {
                 categoryId: e.target.value
             }
         })
+    }
+
+    loadProperties = () => {
+        const token = localStorage.getItem('token');
+        fetch(Constants.BASE_URL + 'Properties', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            }
+        }).then(response => response.json())
+            .then(response => {
+                this.setState({
+                    ...this.state,
+                    properties: response
+                })
+            })
     }
 
     loadCategories = () => {
@@ -56,6 +74,7 @@ class EditProductView extends React.Component {
             }
         }).then(response => response.json())
             .then(response => {
+                console.log(response);
                 this.setState({
                     product: response
                 })
@@ -139,6 +158,9 @@ class EditProductView extends React.Component {
                             <div className="col-3">
                                 <button className="btn btn-danger">Delete</button>
                             </div>
+                        </div>
+                        <div className="row">
+                            {this.state.propertySelectComponents.map(propertySelectComponent => propertySelectComponent)}
                         </div>
                     </form>
                 </div>

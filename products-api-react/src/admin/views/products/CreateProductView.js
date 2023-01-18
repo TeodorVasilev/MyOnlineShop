@@ -16,8 +16,7 @@ class CreateProductView extends React.Component {
             quantity: "",
             description: "",
             categoryId: 0,
-            properties: []
-            //selected options
+            properties: [],
         },
         properties: [],
         propertySelectComponents: [[]]
@@ -67,6 +66,7 @@ class CreateProductView extends React.Component {
         e.preventDefault();
         const token = localStorage.getItem('token');
         const data = this.state.product;
+        console.log(JSON.stringify(data));
         fetch(Constants.BASE_URL + `Products/Create`, {
             method: 'POST',
             headers: {
@@ -81,14 +81,11 @@ class CreateProductView extends React.Component {
     }
 
     addProperty = (property) => {
-        console.log(property);
         let prop = this.state.product.properties.find(p => p.id == property.id);
-        console.log(prop);
-        console.log(this.state.product.properties.includes(prop));
         if(this.state.product.properties.includes(prop)){
             let updatedProperties = this.state.product.properties.map(p => {
                 if (p.id === prop.id) {
-                    return {...p, selectedOptions: property.selectedOptions ? property.selectedOptions : p.selectedOptions }
+                    return {...p, options: property.options ? property.options : p.options }
                 } else {
                     return p;
                 }
@@ -141,7 +138,6 @@ class CreateProductView extends React.Component {
     }
 
     handleRemovePropertySelect = (e, componentId, propertyId) => {
-        console.log(propertyId);
         e.preventDefault();
         this.setState(state => {
             const propertySelectComponents = state.propertySelectComponents.map((component, index) => {

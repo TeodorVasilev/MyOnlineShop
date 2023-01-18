@@ -21,7 +21,5 @@ namespace ProductsAPI.DAL.ViewModels
         public Category? Category { get; set; }
         public List<int> PropertiesIds { get; set; }
         public List<PropertyViewModel>? Properties { get; set; }
-        //public List<int> OptionsIds { get; set; }
-        //public List<OptionViewModel> Options { get; set; }
     }
 }

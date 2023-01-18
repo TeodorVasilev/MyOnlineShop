@@ -11,7 +11,7 @@ namespace ProductsAPI.DAL.ViewModels.Property
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public List<OptionViewModel> Options { get; set; }
     }

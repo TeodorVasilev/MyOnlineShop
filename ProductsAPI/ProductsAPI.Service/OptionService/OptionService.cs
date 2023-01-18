@@ -15,11 +15,6 @@ namespace ProductsAPI.Service.OptionService
 
         public void Create(OptionViewModel formData)
         {
-            if (formData.Name == null || formData.Name.Length < 3)
-            {
-                throw new ArgumentException();
-            }
-
             var option = new Option()
             {
                 Name = formData.Name
