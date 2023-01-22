@@ -1,6 +1,7 @@
 import React from "react";
 import Constants from "../../../constants/Constants";
 import AdminLayout from "../../layout/AdminLayout";
+import PropertySelect from "../../components/PropertySelect";
 
 class EditProductView extends React.Component {
 
@@ -9,6 +10,7 @@ class EditProductView extends React.Component {
     }
 
     componentDidMount() {
+        this.loadProperties();
         this.loadProduct();
         this.loadCategories();
     }
@@ -17,7 +19,7 @@ class EditProductView extends React.Component {
         product: {},
         categories: [],
         properties: [],
-        propertySelectComponents: [[]]
+        propertySelectComponents: []
     }
 
     changeCategory = (e) => {
@@ -63,6 +65,25 @@ class EditProductView extends React.Component {
             })
     }
 
+    loadProductProperties = () => {
+        const propSelectComponents = this.state.product.properties.map(prop =>
+            <div className="col-md-3" >
+                <PropertySelect properties={this.state.properties}
+                    selectedOptions={prop.options}
+                    addProperty={this.addProperty}
+                    removeProperty={this.removeProperty}
+                    removePropertySelect={this.handleRemovePropertySelect}
+                    selectPropertyCnt={this.state.product.properties.length}
+                    defaultValue={prop.id}
+                />
+            </div>
+        );
+
+        this.setState({
+            propertySelectComponents: propSelectComponents
+        })
+    }
+
     loadProduct = () => {
         const token = localStorage.getItem('token');
 
@@ -74,11 +95,81 @@ class EditProductView extends React.Component {
             }
         }).then(response => response.json())
             .then(response => {
-                console.log(response);
                 this.setState({
                     product: response
-                })
+                }, this.loadProductProperties)
             })
+    }
+
+    // addProperty = (property) => {
+    //     let prop = this.state.product.properties.find(p => p.id == property.id);
+    //     if(this.state.product.properties.includes(prop)){
+    //         let updatedProperties = this.state.product.properties.map(p => {
+    //             if (p.id === prop.id) {
+    //                 return {...p, options: property.options ? property.options : p.options }
+    //             } else {
+    //                 return p;
+    //             }
+    //         });
+    //         this.setState({
+    //             ...this.state,
+    //             product: {
+    //                 ...this.state.product,
+    //                 properties: updatedProperties
+    //             }
+    //         });
+    //     } else {
+    //         this.setState({
+    //             ...this.state,
+    //             product: {
+    //                 ...this.state.product,
+    //                 properties: [...this.state.product.properties, property]
+    //             }
+    //         })
+    //     }
+    // }
+
+    removeProperty = (id) => {
+        let updatedProperties = this.state.product.properties.filter(prop => prop.id !== id);
+        this.setState({
+            ...this.state,
+            product: {
+                ...this.state.product,
+                properties: updatedProperties
+            }
+        });
+    }
+
+    handleAddPropertySelect = (e) => {
+        e.preventDefault();
+        this.setState(state => {
+            const id = state.propertySelectComponents.length;
+            const propertySelectComponents = [...state.propertySelectComponents, 
+            <div className="col-md-3" key={id}>
+                <PropertySelect properties={state.properties}
+                addProperty={this.addProperty}
+                removeProperty={this.removeProperty}
+                removePropertySelect={this.handleRemovePropertySelect}
+                selectPropertyCnt={this.state.propertySelectComponents.length}
+                id={id}
+                />
+            </div>]
+            return { propertySelectComponents }
+        });
+    }
+
+    handleRemovePropertySelect = (e, componentId, propertyId) => {
+        e.preventDefault();
+        console.log(componentId);
+        console.log(propertyId);
+        this.setState(state => {
+            const propertySelectComponents = state.propertySelectComponents.map((component, index) => {
+                if (index !== componentId) {
+                    return component;
+                }
+            });
+            return { propertySelectComponents };
+        }, this.removeProperty(propertyId));
     }
 
     updateProduct = (e) => {
@@ -100,6 +191,7 @@ class EditProductView extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <AdminLayout>
                 <div>
@@ -152,15 +244,22 @@ class EditProductView extends React.Component {
                                         onChange={(e) => this.setState({ product: { ...this.state.product, description: e.target.value } })} />
                                 </div>
                             </div>
-                            <div className="col-3">
-                                <button className="btn btn-success">Save changes</button>
+                            <div className="row">
+                                {this.state.propertySelectComponents.map((propertySelect, index) => {
+                                    return propertySelect;
+                                })}
                             </div>
-                            <div className="col-3">
-                                <button className="btn btn-danger">Delete</button>
+                            <div className="row">
+                                <div className="col-2">
+                                    <button className="btn btn-success" onClick={this.handleAddPropertySelect}>AddProperty</button>
+                                </div>
+                                <div className="col-2">
+                                    <button className="btn btn-success">Save changes</button>
+                                </div>
+                                <div className="col-2">
+                                    <button className="btn btn-danger">Delete</button>
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            {this.state.propertySelectComponents.map(propertySelectComponent => propertySelectComponent)}
                         </div>
                     </form>
                 </div>

@@ -47,20 +47,39 @@ class PropertySelect extends React.Component {
         this.props.addProperty(this.state.selectedProperty);
     }
 
+
+    componentDidMount() {
+        let selectedProperty = this.props.properties.find(property => property.id == this.props.defaultValue);
+        if(selectedProperty && selectedProperty.options.length) {
+          this.setState({
+            options: selectedProperty.options,
+            selectedProperty: {
+                id: this.props.defaultValue,
+                options: []
+            }
+          });
+        }
+      }
+
     render() {
         return (
             <div>
                 <label>Property:</label>
-                <select className="form-control" onChange={this.handlePropertyChange}>
+                <select className="form-control" value={this.props.defaultValue} onChange={this.handlePropertyChange}>
                     <option>Select property</option>
                     {this.props.properties.map(property => {
                         return <option value={property.id}>{property.name}</option>
                     })}
                 </select>
                 {this.state.options.map(option => {
+                    let isChecked = false;
+                    if(this.props.selectedOptions !== undefined){
+                        isChecked = this.props.selectedOptions.find(selectedOption => 
+                            selectedOption.id === option.id);
+                    }
                     return <div>
                         <label>{option.name}</label>
-                        <input type="checkbox" value={option.id} onClick={e => this.toggleOption(e)}></input>
+                        <input type="checkbox" value={option.id} checked={isChecked ? true : false} onClick={e => this.toggleOption(e)}></input>
                     </div>
                 })}
                 <div>

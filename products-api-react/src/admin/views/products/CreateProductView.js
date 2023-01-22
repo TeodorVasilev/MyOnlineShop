@@ -150,6 +150,7 @@ class CreateProductView extends React.Component {
     }
 
     render() {
+        console.log(this.state.propertySelectComponents);
         return (
             <AdminLayout>
                 <form onSubmit={this.createProduct}>
