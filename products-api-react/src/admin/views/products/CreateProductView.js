@@ -139,6 +139,8 @@ class CreateProductView extends React.Component {
 
     handleRemovePropertySelect = (e, componentId, propertyId) => {
         e.preventDefault();
+        console.log(componentId);
+        console.log(propertyId);
         this.setState(state => {
             const propertySelectComponents = state.propertySelectComponents.map((component, index) => {
                 if (index !== componentId) {

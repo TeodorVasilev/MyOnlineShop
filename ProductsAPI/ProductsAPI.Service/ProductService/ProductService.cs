@@ -79,7 +79,7 @@ namespace ProductsAPI.Service.ProductService
             {
                 Id = p.Id,
                 Name = p.Name,
-                Options = p.Options.Select(o => new OptionViewModel() { Id = o.Id, Name = o.Name, IsSelected = true}).ToList(),
+                Options = p.Options.Select(o => new OptionViewModel() { Id = o.Id, Name = o.Name, IsSelected = true }).ToList(),
 
             }).ToList();
 
@@ -159,7 +159,7 @@ namespace ProductsAPI.Service.ProductService
         }
         public async Task<ProductViewModel> Update(ProductViewModel formData)
         {
-            var product = this._context.Products.Where(p => p.Id == formData.Id).FirstOrDefault();
+            var product = this._context.Products.Where(p => p.Id == formData.Id).Include(p => p.Properties).Include(p => p.Options).FirstOrDefault();
 
             if (product == null)
             {
@@ -185,6 +185,26 @@ namespace ProductsAPI.Service.ProductService
             {
                 product.CategoryId = formData.CategoryId;
             }
+
+            var properties = new List<Property>();
+            var options = new List<Option>();
+
+            foreach (var item in formData.Properties)
+            {
+                var property = this._context.Properties.Where(p => p.Id == item.Id).FirstOrDefault();
+
+                properties.Add(property);
+
+                foreach (var opt in item.Options)
+                {
+                    var option = this._context.Options.Where(o => o.Id == opt.Id).FirstOrDefault();
+
+                    options.Add(option);
+                }
+            }
+
+            product.Properties = properties;
+            product.Options = options;
 
             this._context.Entry(product).State = EntityState.Modified;
             this._context.SaveChanges();

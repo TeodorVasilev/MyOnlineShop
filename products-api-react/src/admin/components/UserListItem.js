@@ -12,8 +12,8 @@ class UserListItem extends React.Component {
             <tr>
                 <td>{this.props.user.id}</td>
                 <td>{this.props.user.email}</td>
+                <td>{this.props.user.roleName}</td>
                 <td>{`${this.props.user.firstName} ${this.props.user.lastName}`}</td>
-                <td>number of orders</td>
                 <td>
                     <Link to={{ pathname: "/admin/user", state: { user: this.props.user.id } }}>Edit</Link>
                     <span> / </span>

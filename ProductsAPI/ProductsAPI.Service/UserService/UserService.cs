@@ -1,18 +1,22 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProductsAPI.DAL.Data;
+using ProductsAPI.DAL.Models.Account;
 using ProductsAPI.DAL.ViewModels;
 using ProductsAPI.DAL.ViewModels.Account;
+using ProductsAPI.Service.RoleService;
 
 namespace ProductsAPI.Service.UserService
 {
     public class UserService : IUserService
     {
         private readonly ProductsDbContext _context;
+        private readonly IRoleService _roleService;
 
-        public UserService(ProductsDbContext context)
+        public UserService(ProductsDbContext context, IRoleService roleService)
         {
             this._context = context;
+            this._roleService = roleService;
         }
 
         public async Task<UserViewModel> GetUserById(int id)
@@ -27,6 +31,7 @@ namespace ProductsAPI.Service.UserService
             model.FirstName = user.FirstName;
             model.LastName = user.LastName;
             model.FavoriteIds = user.Favorites.Select(p => p.Id).ToList();
+            model.RoleName = this._roleService.GetUserRole(id);
             //cartService get cart
             cartModel.ProductIds = user.CartProducts.Select(p => p.ProductId).ToList();
             cartModel.Quantity = user.CartProducts.Select(p => p.Quantity).Sum();
@@ -46,6 +51,7 @@ namespace ProductsAPI.Service.UserService
                 Email = u.Email,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
+                RoleName = this._roleService.GetUserRole(u.Id),
                 
             }).ToList();
 

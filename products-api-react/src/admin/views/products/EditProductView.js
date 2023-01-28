@@ -66,18 +66,23 @@ class EditProductView extends React.Component {
     }
 
     loadProductProperties = () => {
-        const propSelectComponents = this.state.product.properties.map(prop =>
+        const propSelectComponents = this.state.product.properties.map((prop,index) =>
             <div className="col-md-3" >
-                <PropertySelect properties={this.state.properties}
+                <PropertySelect
+                    properties={this.state.properties}
                     selectedOptions={prop.options}
                     addProperty={this.addProperty}
                     removeProperty={this.removeProperty}
                     removePropertySelect={this.handleRemovePropertySelect}
                     selectPropertyCnt={this.state.product.properties.length}
+                    id={index}
+                    key={index}
                     defaultValue={prop.id}
                 />
             </div>
         );
+
+        console.log(propSelectComponents);
 
         this.setState({
             propertySelectComponents: propSelectComponents
@@ -101,35 +106,37 @@ class EditProductView extends React.Component {
             })
     }
 
-    // addProperty = (property) => {
-    //     let prop = this.state.product.properties.find(p => p.id == property.id);
-    //     if(this.state.product.properties.includes(prop)){
-    //         let updatedProperties = this.state.product.properties.map(p => {
-    //             if (p.id === prop.id) {
-    //                 return {...p, options: property.options ? property.options : p.options }
-    //             } else {
-    //                 return p;
-    //             }
-    //         });
-    //         this.setState({
-    //             ...this.state,
-    //             product: {
-    //                 ...this.state.product,
-    //                 properties: updatedProperties
-    //             }
-    //         });
-    //     } else {
-    //         this.setState({
-    //             ...this.state,
-    //             product: {
-    //                 ...this.state.product,
-    //                 properties: [...this.state.product.properties, property]
-    //             }
-    //         })
-    //     }
-    // }
+    addProperty = (property) => {
+        console.log(property);
+        let prop = this.state.product.properties.find(p => p.id == property.id);
+        if(this.state.product.properties.includes(prop)){
+            let updatedProperties = this.state.product.properties.map(p => {
+                if (p.id === prop.id) {
+                    return {...p, options: property.options ? property.options : p.options }
+                } else {
+                    return p;
+                }
+            });
+            this.setState({
+                ...this.state,
+                product: {
+                    ...this.state.product,
+                    properties: updatedProperties
+                }
+            });
+        } else {
+            this.setState({
+                ...this.state,
+                product: {
+                    ...this.state.product,
+                    properties: [...this.state.product.properties, property]
+                }
+            })
+        }
+    }
 
     removeProperty = (id) => {
+        console.log(id);
         let updatedProperties = this.state.product.properties.filter(prop => prop.id !== id);
         this.setState({
             ...this.state,
@@ -138,6 +145,7 @@ class EditProductView extends React.Component {
                 properties: updatedProperties
             }
         });
+        console.log(updatedProperties);
     }
 
     handleAddPropertySelect = (e) => {
@@ -160,8 +168,7 @@ class EditProductView extends React.Component {
 
     handleRemovePropertySelect = (e, componentId, propertyId) => {
         e.preventDefault();
-        console.log(componentId);
-        console.log(propertyId);
+        console.log(this.state.propertySelectComponents);
         this.setState(state => {
             const propertySelectComponents = state.propertySelectComponents.map((component, index) => {
                 if (index !== componentId) {
@@ -191,7 +198,6 @@ class EditProductView extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <AdminLayout>
                 <div>
@@ -254,7 +260,7 @@ class EditProductView extends React.Component {
                                     <button className="btn btn-success" onClick={this.handleAddPropertySelect}>AddProperty</button>
                                 </div>
                                 <div className="col-2">
-                                    <button className="btn btn-success">Save changes</button>
+                                    <button className="btn btn-success" onClick={this.updateProduct}>Save changes</button>
                                 </div>
                                 <div className="col-2">
                                     <button className="btn btn-danger">Delete</button>

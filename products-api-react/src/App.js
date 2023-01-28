@@ -15,6 +15,7 @@ import CreateProductView from "./admin/views/products/CreateProductView";
 import PropertiesView from "./admin/views/properties/PropertiesView";
 import EditPropertyView from "./admin/views/properties/EditPropertyView";
 import ProductView from "./views/products/ProductView";
+import RolesView from "./admin/roles/RolesView";
 
 class App extends React.Component {
 
@@ -52,6 +53,8 @@ class App extends React.Component {
           <Route path="/admin/properties" component={PropertiesView}>
           </Route>
           <Route path="/admin/property" component={EditPropertyView}>
+          </Route>
+          <Route path="/admin/roles" component={RolesView}>
           </Route>
           <Route path="/admin" component={AdminView}>
           </Route>
