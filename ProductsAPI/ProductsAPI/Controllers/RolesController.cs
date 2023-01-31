@@ -23,5 +23,11 @@ namespace ProductsAPI.Controllers
         {
             return await this._roleService.GetListOfRoles();
         }
+
+        [HttpGet("{id}")]
+        public async Task<RoleViewModel> GetRole(int id)
+        {
+            return await this._roleService.GetRoleById(id);
+        }
     }
 }

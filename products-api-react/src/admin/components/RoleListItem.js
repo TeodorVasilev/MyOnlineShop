@@ -15,8 +15,6 @@ class RoleListItem extends React.Component {
                  <td>
                      <Link to={{ pathname: "/admin/role", state: { role: this.props.role.id } }}>Edit</Link>
                      <span> / </span>
-                     <Link className="text-success">Orders</Link>
-                     <span> / </span>
                      <Link className="text-danger">Delete</Link>
                  </td>
             </tr>

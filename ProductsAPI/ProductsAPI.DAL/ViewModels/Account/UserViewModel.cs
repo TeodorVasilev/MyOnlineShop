@@ -7,6 +7,7 @@
         public string LastName { get; set; }
         public string Email { get; set; }
         public string RoleName { get; set; }
+        public bool IsInRole { get; set; }
         public List<int>? FavoriteIds { get; set; }
         public LayoutCartViewModel Cart { get; set; }
     }

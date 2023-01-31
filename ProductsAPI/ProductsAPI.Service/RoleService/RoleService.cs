@@ -66,7 +66,7 @@ namespace ProductsAPI.Service.RoleService
             {
                 var user = this._context.Users.Where(u => u.Id == userRole.UserId).FirstOrDefault();
 
-                usersInRole.Add(new UserViewModel() { Id = user.Id, Email = user.Email });
+                usersInRole.Add(new UserViewModel() { Id = user.Id, FirstName = user.FirstName, LastName = user.LastName, Email = user.Email });
             }
 
             var model = new RoleViewModel()
