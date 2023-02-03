@@ -13,5 +13,6 @@ namespace ProductsAPI.Service.RoleService
         Task<ApiRole> GetRoleByName(string roleName);
         Task<ApiRole> GetRoleByUserId(int userId);
         Task<List<IdentityUserRole<int>>> GetUserRoles(int userId);
+        bool IsUserInRole(int userId, int roleId);
     }
 }

@@ -83,5 +83,19 @@ namespace ProductsAPI.Service.RoleService
         {
             return await this._context.Roles.Select(r => new RoleViewModel() { Id = r.Id, Name = r.Name }).ToListAsync();
         }
+
+        public bool IsUserInRole(int userId, int roleId)
+        {
+            var userRole = this._context.UserRoles.Where(ur => ur.UserId == userId && ur.RoleId == roleId).FirstOrDefault();
+
+            if(userRole != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

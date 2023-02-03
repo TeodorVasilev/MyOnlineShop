@@ -31,9 +31,9 @@ namespace ProductsAPI.Controllers
         [HttpGet]
         [Route("GetUsers")]
         [Authorize(Roles = "Admin")]
-        public async Task<List<UserViewModel>> GetUsers()
+        public async Task<List<UserViewModel>> GetUsers(int roleId = 0)
         {
-            return await this._userService.GetUsers();
+            return await this._userService.GetUsers(roleId);
         }
 
         [HttpPut]

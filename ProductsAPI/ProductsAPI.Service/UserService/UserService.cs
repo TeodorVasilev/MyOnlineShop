@@ -40,7 +40,7 @@ namespace ProductsAPI.Service.UserService
             return model;
         }
 
-        public async Task<List<UserViewModel>> GetUsers()
+        public async Task<List<UserViewModel>> GetUsers(int roleId = 0)
         {   
             var users = await this._context.Users.ToListAsync();
             var model = new List<UserViewModel>();
@@ -52,7 +52,8 @@ namespace ProductsAPI.Service.UserService
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 RoleName = this._roleService.GetUserRole(u.Id),
-                
+                IsInRole = this._roleService.IsUserInRole(u.Id, roleId)
+
             }).ToList();
 
             return model;            

@@ -12,6 +12,6 @@ namespace ProductsAPI.Service.UserService
     {
         Task<UserViewModel> GetUserById(int id);
         Task<bool> Update(EditUserViewModel userViewModel);
-        Task<List<UserViewModel>> GetUsers();
+        Task<List<UserViewModel>> GetUsers(int roleId = 0);
     }
 }

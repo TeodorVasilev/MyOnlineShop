@@ -42,7 +42,7 @@ class EditRoleView extends React.Component {
         return (
             <AdminLayout>
                 <div>
-                    <h3>Edit Role</h3>
+                    <h3>Edit Role: {this.state.role.name}</h3>
                 </div>
                 <form onSubmit={this.updateRole}>
                     <div className="row">
@@ -60,7 +60,7 @@ class EditRoleView extends React.Component {
                 <div>
                     <ul class="nav">
                         <li class="nav-item">
-                            <Link to="/admin/roles" class="nav-link active ps-0" aria-current="page" href="#">Edit users in role</Link>
+                            <Link to={{ pathname: "/admin/editusersinrole", state: { role: this.state.role } }} class="nav-link active ps-0" aria-current="page" href="#">Edit users in role</Link>
                         </li>
                     </ul>
                 </div>
