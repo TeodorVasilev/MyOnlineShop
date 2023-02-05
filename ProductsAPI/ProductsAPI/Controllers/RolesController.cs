@@ -29,5 +29,11 @@ namespace ProductsAPI.Controllers
         {
             return await this._roleService.GetRoleById(id);
         }
+
+        [HttpPut]
+        public async void UpdateUsersInRole(RoleViewModel formData)
+        {
+            this._roleService.UpdateUsersInRole(formData);
+        }
     }
 }

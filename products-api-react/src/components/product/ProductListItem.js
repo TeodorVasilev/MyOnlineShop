@@ -97,9 +97,6 @@ class ProductsListItem extends React.Component {
                                 <p className="mt-0 product-price">{this.props.price}$</p>
                             </div>
                         </Link>
-                        <div className="d-flex justify-content-center pb-3">
-                            <button className="btn btn-secondary quick-view d-none">Quick View</button>
-                        </div>
                     </div>
             </div>
         );

@@ -88,7 +88,7 @@ namespace ProductsAPI.Service.RoleService
         {
             var userRole = this._context.UserRoles.Where(ur => ur.UserId == userId && ur.RoleId == roleId).FirstOrDefault();
 
-            if(userRole != null)
+            if (userRole != null)
             {
                 return true;
             }
@@ -96,6 +96,28 @@ namespace ProductsAPI.Service.RoleService
             {
                 return false;
             }
+        }
+
+        public void UpdateUsersInRole(RoleViewModel formData)
+        {
+            var userRoles = this._context.UserRoles.Where(ur => ur.RoleId == formData.Id).ToList();
+
+            var newUserRoles = new List<IdentityUserRole<int>>();
+
+            foreach (var user in formData.Users)
+            {
+                var userRole = new IdentityUserRole<int>()
+                {
+                    UserId = user.Id,
+                    RoleId = formData.Id,
+                };
+
+                newUserRoles.Add(userRole);
+            }
+
+            this._context.UserRoles.RemoveRange(userRoles);
+            this._context.UserRoles.AddRange(newUserRoles);
+            this._context.SaveChanges();
         }
     }
 }

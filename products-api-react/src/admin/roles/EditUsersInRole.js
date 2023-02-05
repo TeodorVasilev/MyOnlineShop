@@ -8,7 +8,8 @@ class EditUsersInRole extends React.Component {
     }
 
     state = {
-        users: []
+        users: [],
+        usersInRole: []
     }
 
     componentDidMount() {
@@ -16,7 +17,24 @@ class EditUsersInRole extends React.Component {
     }
 
     updateRole = () => {
-
+        const token = localStorage.getItem('token');
+        const data = {
+            id: this.props.location.state.role.id,
+            name: '',
+            users: this.state.usersInRole,
+        }
+        console.log(data);
+        fetch(Constants.BASE_URL + 'Roles',{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+            .then(response => {
+                console.log(response);
+            });
     }
 
     loadUsers() {
@@ -31,13 +49,29 @@ class EditUsersInRole extends React.Component {
             .then(response => {
                 console.log(response);
                 this.setState({
-                    users: response
+                    users: response,
+                    usersInRole: response.filter(u => u.isInRole)
                 })
             })
     }
 
+    toggleUserInRole = (user) => {
+        const usersInRole = this.state.usersInRole;
+    
+        if (usersInRole.find(u => u.id === user.id)) {
+            this.setState({
+                usersInRole: usersInRole.filter(u => u.id !== user.id)
+            });
+        } else {
+            this.setState({
+                usersInRole: [...usersInRole, user]
+            });
+        }
+    }
+    
+
     render() {
-        console.log(this.state);
+        console.log(this.state.usersInRole);
         return (
             <AdminLayout>
                 <div>
@@ -61,7 +95,7 @@ class EditUsersInRole extends React.Component {
                                             <td>{user.id}</td>
                                             <td>{user.email}</td>
                                             <td>{user.firstName + ' ' + user.lastName}</td>
-                                            <td><input type="checkbox" checked={user.isInRole}></input></td>
+                                            <td><input type="checkbox" defaultChecked={user.isInRole} onChange={() => this.toggleUserInRole(user)}></input></td>
                                         </tr>
                                     );
                                 }
@@ -71,7 +105,7 @@ class EditUsersInRole extends React.Component {
                     </table>
                 </div>
                 <div>
-                    <button className="btn btn-success">Save changes</button>
+                    <button className="btn btn-success" onClick={this.updateRole}>Save changes</button>
                 </div>
             </AdminLayout>
         );

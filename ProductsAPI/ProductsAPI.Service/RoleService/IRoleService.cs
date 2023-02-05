@@ -14,5 +14,6 @@ namespace ProductsAPI.Service.RoleService
         Task<ApiRole> GetRoleByUserId(int userId);
         Task<List<IdentityUserRole<int>>> GetUserRoles(int userId);
         bool IsUserInRole(int userId, int roleId);
+        void UpdateUsersInRole(RoleViewModel formData);
     }
 }

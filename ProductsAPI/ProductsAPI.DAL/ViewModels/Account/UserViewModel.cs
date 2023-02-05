@@ -9,6 +9,6 @@
         public string RoleName { get; set; }
         public bool IsInRole { get; set; }
         public List<int>? FavoriteIds { get; set; }
-        public LayoutCartViewModel Cart { get; set; }
+        public LayoutCartViewModel? Cart { get; set; }
     }
 }
