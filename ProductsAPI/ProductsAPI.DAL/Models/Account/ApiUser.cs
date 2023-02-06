@@ -8,7 +8,7 @@ namespace ProductsAPI.DAL.Models.Account
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public ICollection<Product> Favorites { get; set; }
-        public ICollection<Cart> CartProducts { get; set; }
+        public virtual ICollection<Product> Favorites { get; set; }
+        public virtual ICollection<Cart> CartProducts { get; set; }
     }
 }

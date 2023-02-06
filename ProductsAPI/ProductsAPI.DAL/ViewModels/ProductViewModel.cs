@@ -1,6 +1,7 @@
 ﻿using ProductsAPI.DAL.Models;
 using ProductsAPI.DAL.ViewModels.Option;
 using ProductsAPI.DAL.ViewModels.Property;
+using ProductsAPI.DAL.ViewModels.Image;
 
 namespace ProductsAPI.DAL.ViewModels
 {
@@ -10,6 +11,7 @@ namespace ProductsAPI.DAL.ViewModels
         {
             this.PropertiesIds = new List<int>();
             this.Properties = new List<PropertyViewModel>();
+            this.Images = new List<ImageViewModel>();
         }
 
         public int Id { get; set; }
@@ -21,5 +23,6 @@ namespace ProductsAPI.DAL.ViewModels
         public Category? Category { get; set; }
         public List<int> PropertiesIds { get; set; }
         public List<PropertyViewModel>? Properties { get; set; }
+        public List<ImageViewModel> Images { get; set; }
     }
 }

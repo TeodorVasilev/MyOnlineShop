@@ -31,8 +31,8 @@ namespace ProductsAPI.Controllers
         [Route("Create")]
         public async Task<IActionResult> Create(ProductViewModel formData)
         {
-            _productService.Create(formData);
-            return CreatedAtAction(nameof(GetProductById), new { id = formData.Id }, formData);
+            var product = _productService.Create(formData);
+            return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
         }
 
         [HttpPut]

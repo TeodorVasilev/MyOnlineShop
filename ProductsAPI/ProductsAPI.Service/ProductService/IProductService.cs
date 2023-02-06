@@ -7,7 +7,7 @@ namespace ProductsAPI.Service.ProductService
 {
     public interface IProductService
     {
-        void Create(ProductViewModel formData);
+        Product Create(ProductViewModel formData);
         Task<ProductViewModel> Update(ProductViewModel formData);
         void Delete(int id);
         Task<List<int>> ToggleFavoriteProduct(int userId, int productId);

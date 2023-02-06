@@ -1,4 +1,5 @@
 ﻿using ProductsAPI.DAL.Models.Account;
+using ProductsAPI.DAL.Models.Images;
 
 namespace ProductsAPI.DAL.Models.Products
 {
@@ -11,11 +12,12 @@ namespace ProductsAPI.DAL.Models.Products
         public int Quantity { get; set; }
 
         public int CategoryId { get; set; }
-        public Category? Category { get; set; }
+        public virtual Category? Category { get; set; }
 
-        public ICollection<Option> Options { get; set; }
-        public ICollection<Property> Properties { get; set; }
-        public ICollection<ApiUser> ApiUsers { get; set; }
-        public ICollection <Cart> CartProducts{ get; set; }
+        public virtual ICollection<Option> Options { get; set; }
+        public virtual ICollection<Property> Properties { get; set; }
+        public virtual ICollection<ApiUser> ApiUsers { get; set; }
+        public virtual ICollection <Cart> CartProducts{ get; set; }
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

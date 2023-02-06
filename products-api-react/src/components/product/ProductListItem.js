@@ -61,7 +61,6 @@ class ProductsListItem extends React.Component {
                 })
             })
     }
-
     render() {
         let favoriteButton;
         let addToCartButton;

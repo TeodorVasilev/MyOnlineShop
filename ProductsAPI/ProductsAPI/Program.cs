@@ -6,6 +6,7 @@ using ProductsAPI.DAL.JWT;
 using ProductsAPI.DAL.Models.Account;
 using ProductsAPI.Service.CartService;
 using ProductsAPI.Service.CategoryService;
+using ProductsAPI.Service.ImageService;
 using ProductsAPI.Service.LoginService;
 using ProductsAPI.Service.OptionService;
 using ProductsAPI.Service.ProductService;
@@ -70,6 +71,7 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<IOptionService, OptionService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 

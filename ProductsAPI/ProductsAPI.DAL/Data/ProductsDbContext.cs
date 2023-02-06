@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductsAPI.DAL.Configuration;
 using ProductsAPI.DAL.Models;
 using ProductsAPI.DAL.Models.Account;
+using ProductsAPI.DAL.Models.Images;
 using ProductsAPI.DAL.Models.Products;
 
 namespace ProductsAPI.DAL.Data
@@ -16,6 +17,7 @@ namespace ProductsAPI.DAL.Data
         public DbSet<ApiUser> Users { get; set; }
         public DbSet<ApiRole> Roles { get; set; }  
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<Image> Images { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -33,6 +35,7 @@ namespace ProductsAPI.DAL.Data
             modelBuilder.ApplyConfiguration(new ApiUserConfiguration());
             modelBuilder.ApplyConfiguration(new ApiRoleConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageConfiguration());
         }
     }
 }

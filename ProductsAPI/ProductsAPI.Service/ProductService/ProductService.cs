@@ -2,6 +2,7 @@
 using ProductsAPI.DAL.Data;
 using ProductsAPI.DAL.Models.Products;
 using ProductsAPI.DAL.ViewModels;
+using ProductsAPI.DAL.ViewModels.Image;
 using ProductsAPI.DAL.ViewModels.Option;
 using ProductsAPI.DAL.ViewModels.Property;
 
@@ -59,7 +60,7 @@ namespace ProductsAPI.Service.ProductService
         //
         public ProductViewModel GetProductById(int id)
         {
-            var product = _context.Products.Where(p => p.Id == id).Include(p => p.Properties).Include(p => p.Options)
+            var product = _context.Products.Where(p => p.Id == id).Include(p => p.Images).Include(p => p.Properties).Include(p => p.Options)
                 .ThenInclude(o => o.Properties).FirstOrDefault();
 
             if (product == null)
@@ -75,6 +76,13 @@ namespace ProductsAPI.Service.ProductService
             model.Description = product.Description;
             model.Quantity = product.Quantity;
             model.CategoryId = product.CategoryId;
+            model.Images = product.Images.Select(i => new ImageViewModel()
+            {
+                Id=i.Id,
+                BinaryData = i.BinaryData,
+                ProductId = i.ProductId,
+                
+            }).ToList();
             model.Properties = product.Properties.Select(p => new PropertyViewModel()
             {
                 Id = p.Id,
@@ -89,7 +97,7 @@ namespace ProductsAPI.Service.ProductService
         {
             int page = filters.CurrentPage != 0 ? filters.CurrentPage : 1;
 
-            var query = _context.Products.AsQueryable();
+            var query = _context.Products.Include(p => p.Images).AsQueryable();
             query = FilterQuery(query, filters);
 
             var products = query.Skip((page - 1) * filters.PerPage).Take(filters.PerPage)
@@ -100,7 +108,14 @@ namespace ProductsAPI.Service.ProductService
                     Price = p.Price,
                     Quantity = p.Quantity,
                     Description = p.Description,
-                    CategoryId = p.CategoryId
+                    CategoryId = p.CategoryId,
+                    Images = p.Images.Select(i => new ImageViewModel()
+                    {
+                        Id = i.Id,
+                        BinaryData = i.BinaryData,
+                        ProductId = i.ProductId,
+
+                    }).ToList(),
                 }).ToList();
 
             var model = new ProductListViewModel();
@@ -230,7 +245,7 @@ namespace ProductsAPI.Service.ProductService
             _context.Products.Remove(product);
             _context.SaveChanges();
         }
-        public void Create(ProductViewModel formData)
+        public Product Create(ProductViewModel formData)
         {
             var properties = new List<Property>();
             var options = new List<Option>();
@@ -260,6 +275,8 @@ namespace ProductsAPI.Service.ProductService
 
             _context.Products.Add(product);
             _context.SaveChanges();
+            
+            return product;
         }
     }
 }

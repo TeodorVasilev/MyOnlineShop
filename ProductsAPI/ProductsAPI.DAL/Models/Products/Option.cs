@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Property> Properties { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Property> Properties { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
