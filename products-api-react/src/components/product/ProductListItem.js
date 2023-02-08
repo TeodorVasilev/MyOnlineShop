@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import * as actions from "../../actions/AuthActions";
 import { bindActionCreators } from "redux";
 import Constants from "../../constants/Constants";
+import ProductImage from "./ProductImage";
 
 class ProductsListItem extends React.Component {
     constructor(props) {
@@ -79,6 +80,10 @@ class ProductsListItem extends React.Component {
         }
 
         const width = `col-${this.props.width} pb-3`
+        let image = '';
+        if(this.props.images.length !== 0){
+            image = `data:image/png';base64,${this.props.images[0].binaryData}`;
+        }
         return (
             <div className={width}>
                     <div className="product border rounded">
@@ -87,7 +92,7 @@ class ProductsListItem extends React.Component {
                         <Link to={{ pathname: "product", state: { productId: this.props.id } }} className="text-decoration-none">
                             <div>
                                 <img class="img-fluid p-1"
-                                    src="https://marks-uhren.de/wp-content/uploads/2021/04/Rolex-Datejust-26-vollgold-06.04.2021-2-scaled.jpg"
+                                src={image}
                                     alt="" />
                             </div>
                             <div className="product-description ps-3">
