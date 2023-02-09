@@ -20,6 +20,9 @@ class ProductView extends React.Component {
         }).then(response => response.json())
             .then(response => {
                 console.log(response);
+                this.setState({
+                    product: response
+                })
             })
     }
 
@@ -28,35 +31,38 @@ class ProductView extends React.Component {
     }
 
     render() {
-        console.log(this.state);
-        // let image = '';
-        // if(this.props.images.length !== 0){
-        //     image = `data:image/png';base64,${this.props.images[0].binaryData}`;
-        // }
+        let images = [];
+        if (this.state.product && this.state.product.images) {
+            images = this.state.product.images.map(image => {
+                console.log(image);
+                return <div className="col-md-6"><img className="img-fluid border rounded" key={image.id} src={`data:image/jpeg;base64,${image.binaryData}`} alt={`Product ID: ${image.productId}`} /></div>
+            })
+        }
         return (
             <TopLayout>
                 <div>
-                    {/* {this.props.location.state.productId} */}
                     <div className="container">
-                        <div className="row">
-                            <div className="col-md-8">
-                                <img src="product-image.jpg" alt="product image" />
+                        <div className="row mt-4">
+                            <div className="col-md-7">
+                                <div className="row">
+                                    {images}
+                                </div>
                             </div>
-                            <div className="col-md-4">
-                                <h3>Product Name</h3>
-                                <p>Product Description</p>
-                                <p><strong>Price:</strong> $XX</p>
+                            <div className="col-md-5">
+                                <h3>{this.state.product.name}</h3>
+                                <p>{this.state.product.description}</p>
+                                <p><strong>Price:</strong>{this.state.product.price}$</p>
                                 <div>
                                     <button className="btn btn-primary">Add to Cart</button>
                                 </div>
-                                <div>
+                                <div className="my-2">
                                     <button className="btn btn-secondary">Fast Order</button>
                                 </div>
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                Accordion Item #1
+                                                About product
                                             </button>
                                         </h2>
                                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -68,7 +74,7 @@ class ProductView extends React.Component {
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingTwo">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Accordion Item #2
+                                                Shipment and payment
                                             </button>
                                         </h2>
                                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">

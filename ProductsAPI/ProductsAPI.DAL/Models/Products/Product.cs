@@ -1,5 +1,6 @@
 ﻿using ProductsAPI.DAL.Models.Account;
 using ProductsAPI.DAL.Models.Images;
+using ProductsAPI.DAL.Models.Orders;
 
 namespace ProductsAPI.DAL.Models.Products
 {
@@ -19,5 +20,6 @@ namespace ProductsAPI.DAL.Models.Products
         public virtual ICollection<ApiUser> ApiUsers { get; set; }
         public virtual ICollection <Cart> CartProducts{ get; set; }
         public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }
