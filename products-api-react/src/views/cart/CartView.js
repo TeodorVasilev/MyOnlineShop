@@ -13,6 +13,33 @@ class CartView extends React.Component {
         super(props);
     }
 
+    state = {
+        shippingAddres: '',
+        mobilePhone: ''
+    }
+
+    order = () => {
+        const token = localStorage.getItem('token');
+        let data = {
+            mobilePhone: this.state.mobilePhone,
+            userId: this.props.layout.user.id,
+            shippingAddress: this.state.shippingAddres,
+            totalPrice: this.props.layout.user.cart.totalPrice,
+        }
+        console.log(data);
+        fetch(Constants.BASE_URL + 'Order', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(data),
+        }).then(response => response.json())
+        .then(response => {
+            console.log(response);
+        })
+    }
+
     render() {
         if (this.props.layout.isLogged === false) {
             return <Redirect to="/login"></Redirect>
@@ -38,13 +65,35 @@ class CartView extends React.Component {
                                 <div className="border-bottom">
                                     <h4 className="text-uppercase p-2">Order</h4>
                                 </div>
+                                <form>
+                                    <div className="form-group">
+                                        <label htmlFor="shippingAddress">Mobile phone</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="shippingAddress"
+                                            defaultValue={this.state.mobilePhone}
+                                            onChange={(e) => this.setState({ mobilePhone: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="shippingAddress">Shipping Address</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="shippingAddress"
+                                            defaultValue={this.state.shippingAddress}
+                                            onChange={(e) => this.setState({ shippingAddres: e.target.value })}
+                                        />
+                                    </div>
+                                </form>
                                 <div className="d-flex flex-column align-items-center">
-                                <div>
-                                    Total price: {this.props.layout.user.cart.totalPrice} $
-                                </div>
-                                <div>
-                                    <button className="btn btn-success">Order</button>
-                                </div>
+                                    <div>
+                                        Total price: {this.props.layout.user.cart.totalPrice} $
+                                    </div>
+                                    <div>
+                                        <button className="btn btn-success" onClick={this.order}>Order</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

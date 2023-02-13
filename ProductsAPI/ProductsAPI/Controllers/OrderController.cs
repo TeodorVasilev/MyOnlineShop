@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.DAL.ViewModels.Order;
 using ProductsAPI.Service.OrderService;
 
@@ -14,10 +15,18 @@ namespace ProductsAPI.Controllers
             this._orderService = orderService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(OrderViewModel formData)
         {
-            //this._orderService.Create(formData);
+            this._orderService.Create(formData);
+            //return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
             throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public async Task<List<OrderViewModel>> GetAllOrders()
+        {
+            return await this._orderService.GetAllOrders();
         }
     }
 }

@@ -92,13 +92,16 @@ class CartListItem extends React.Component {
     }
 
     render() {
+        let image = '';
+        if(this.props.images.length !== 0){
+            image = `data:image/png';base64,${this.props.images[0].binaryData}`;
+        }
         let price = this.props.quantity * this.props.price;
-
         return (
             <div className="cart-item col-12 border-bottom d-flex justify-content-evenly align-items-center">
                 <div>
                     <img class="img-fluid p-1 product-img"
-                        src="https://marks-uhren.de/wp-content/uploads/2021/04/Rolex-Datejust-26-vollgold-06.04.2021-2-scaled.jpg"
+                        src={image}
                         alt="" />
                 </div>
                 <div class="product-description ps-3">

@@ -3,6 +3,7 @@ using ProductsAPI.DAL.Data;
 using ProductsAPI.DAL.Models;
 using ProductsAPI.DAL.ViewModels;
 using ProductsAPI.DAL.ViewModels.Cart;
+using ProductsAPI.DAL.ViewModels.Image;
 
 namespace ProductsAPI.Service.CartService
 {
@@ -29,7 +30,7 @@ namespace ProductsAPI.Service.CartService
             {
                 var product = this._context.Products.Where(p => p.Id == productId).FirstOrDefault();
 
-                var cartProductToAdd = new Cart { UserId = user.Id, ProductId = product.Id, Quantity = quantity };
+                var cartProductToAdd = new Cart { UserId = user.Id, ProductId = product.Id, Quantity = quantity, UnitPrice = product.Price };
 
                 user.CartProducts.Add(cartProductToAdd);
             }
@@ -61,7 +62,7 @@ namespace ProductsAPI.Service.CartService
 
         public async Task<CartViewModel> GetUserCart(int userId)
         {
-            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).FirstOrDefault();
+            var user = this._context.Users.Where(u => u.Id == userId).Include(u => u.CartProducts).ThenInclude(c => c.Product).ThenInclude(p => p.Images).FirstOrDefault();
             var cartProducts = user.CartProducts.ToList();
             var products = user.CartProducts.Select(c => c.Product).ToList();
 
@@ -71,16 +72,23 @@ namespace ProductsAPI.Service.CartService
                 Name = p.Name,
                 Price = p.Price,
                 Quantity = cartProducts.Where(cp => cp.ProductId == p.Id).FirstOrDefault().Quantity,
+                Images = p.Images.Select(i => new ImageViewModel()
+                {
+                    Id = i.Id,
+                    BinaryData = i.BinaryData,
+                    ProductId = i.ProductId,
+
+                }).ToList(),
                 Description = p.Description,
                 CategoryId = p.CategoryId
             }).ToList();
 
-            var model = new CartViewModel();
+        var model = new CartViewModel();
 
-            model.Products = productsList;
-            model.TotalPrice = productsList.Select(p => p.Price * p.Quantity).Sum();
+        model.Products = productsList;
+            model.TotalPrice = productsList.Select(p => p.Price* p.Quantity).Sum();
 
             return model;
         }
-    }
+}
 }

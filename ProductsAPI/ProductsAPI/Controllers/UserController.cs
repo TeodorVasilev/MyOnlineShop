@@ -14,12 +14,10 @@ namespace ProductsAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IProductService _productService;
 
-        public UserController(IUserService userService, IProductService productService)
+        public UserController(IUserService userService)
         {
             this._userService = userService;
-            this._productService = productService;
         }
 
         [HttpGet]

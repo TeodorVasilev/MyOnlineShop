@@ -6,7 +6,7 @@ class AdminLayout extends React.Component {
     constructor(props) {
         super(props)
     }
-
+    
     render() {
         return (
             <div class="container-fluid">
@@ -43,9 +43,9 @@ class AdminLayout extends React.Component {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a class="nav-link px-0 align-middle">
+                                    <Link to="/admin/orders" class="nav-link px-0 align-middle">
                                         <Clipboard2CheckFill/> <span class="ms-1 d-none d-sm-inline">Orders</span> 
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                             <hr/>

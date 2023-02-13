@@ -12,7 +12,7 @@ using ProductsAPI.DAL.Data;
 namespace ProductsAPI.DAL.Migrations
 {
     [DbContext(typeof(ProductsDbContext))]
-    [Migration("20230209192759_AddOrders")]
+    [Migration("20230213195505_AddOrders")]
     partial class AddOrders
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -220,14 +220,14 @@ namespace ProductsAPI.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "b6f68876-f624-4faa-8804-db0cfb49051f",
+                            ConcurrencyStamp = "94539af6-a57f-4bf7-b7b4-f212d9f7c33d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "b293e709-70bb-42f8-84f5-399852bc71cf",
+                            ConcurrencyStamp = "bb2f60b6-872e-4e29-af7a-c39c38d21f1b",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -320,6 +320,9 @@ namespace ProductsAPI.DAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("UserId", "ProductId");
 
                     b.HasIndex("ProductId");
@@ -397,6 +400,10 @@ namespace ProductsAPI.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("MobilePhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");

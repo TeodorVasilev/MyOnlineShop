@@ -8,6 +8,7 @@ namespace ProductsAPI.DAL.Models.Orders
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }
         public string ShippingAddress { get; set; }
+        public string MobilePhone { get; set; }
         public OrderStatus Status { get; set; }
         public int UserId { get; set; }
         public virtual ApiUser User { get; set; }

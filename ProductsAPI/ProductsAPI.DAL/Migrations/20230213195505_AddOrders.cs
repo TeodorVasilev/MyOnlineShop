@@ -9,6 +9,13 @@ namespace ProductsAPI.DAL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<decimal>(
+                name: "UnitPrice",
+                table: "Carts",
+                type: "decimal(18,2)",
+                nullable: false,
+                defaultValue: 0m);
+
             migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
@@ -18,6 +25,7 @@ namespace ProductsAPI.DAL.Migrations
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ShippingAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MobilePhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -65,14 +73,14 @@ namespace ProductsAPI.DAL.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "ConcurrencyStamp",
-                value: "b6f68876-f624-4faa-8804-db0cfb49051f");
+                value: "94539af6-a57f-4bf7-b7b4-f212d9f7c33d");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "ConcurrencyStamp",
-                value: "b293e709-70bb-42f8-84f5-399852bc71cf");
+                value: "bb2f60b6-872e-4e29-af7a-c39c38d21f1b");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_OrderId",
@@ -97,6 +105,10 @@ namespace ProductsAPI.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropColumn(
+                name: "UnitPrice",
+                table: "Carts");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
