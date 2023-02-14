@@ -63,7 +63,7 @@ builder.Services.AddCors(o => o.AddPolicy("corsFixLocalhost", builder =>
 
 builder.Services.AddAuthentication();
 
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService, ProductsAPI.Service.ProductService.ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddScoped<IUserService, UserService>();

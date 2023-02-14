@@ -7,6 +7,7 @@ import TopLayout from "../../layout/TopLayout";
 import Constants from "../../constants/Constants";
 import jwt_decode from "jwt-decode";
 import CartProductList from "../../components/cart-product-list/CartList";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 class CartView extends React.Component {
     constructor(props) {
@@ -35,17 +36,15 @@ class CartView extends React.Component {
             },
             body: JSON.stringify(data),
         }).then(response => response.json())
-        .then(response => {
-            console.log(response);
-        })
+            .then(response => {
+                console.log(response);
+            })
     }
 
     render() {
         if (this.props.layout.isLogged === false) {
             return <Redirect to="/login"></Redirect>
         }
-        console.log(this.props.layout.user.cart)
-
         return (
             <TopLayout>
                 <div className="container mt-4">
@@ -92,7 +91,31 @@ class CartView extends React.Component {
                                         Total price: {this.props.layout.user.cart.totalPrice} $
                                     </div>
                                     <div>
-                                        <button className="btn btn-success" onClick={this.order}>Order</button>
+                                        {/* <button className="btn btn-success" onClick={this.order}>Order</button> */}
+                                        <PayPalScriptProvider options={{ "client-id": "AYKoWj-f0l52VJTRTS2lPHN8HnkVOJZ6AY0rkAo2gdK2woxpELy-peR26_hrSfchkTcx2lvmluZIRlUu" }}>
+                                            <PayPalButtons style={{
+                                                layout: "horizontal",
+                                                color: "white",
+                                                label: "buynow"
+                                            }}
+                                                createOrder={(data, actions) => {
+                                                    return actions.order.create({
+                                                        purchase_units: [{
+                                                            amount: {
+                                                                value: this.props.layout.user.cart.totalPrice,
+                                                            }
+                                                        }]
+                                                    })
+                                                }}
+                                                onApprove={(data, actions) => {
+                                                    return actions.order.capture().then((details) => {
+                                                        this.order();
+                                                        alert(`Your order is placed successfully`);
+                                                        this.props.history.push('/');
+                                                    });
+                                                }}
+                                            />
+                                        </PayPalScriptProvider>
                                     </div>
                                 </div>
                             </div>
