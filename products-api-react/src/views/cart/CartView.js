@@ -24,6 +24,7 @@ class CartView extends React.Component {
         let data = {
             mobilePhone: this.state.mobilePhone,
             userId: this.props.layout.user.id,
+            userEmail: this.props.layout.user.email,
             shippingAddress: this.state.shippingAddres,
             totalPrice: this.props.layout.user.cart.totalPrice,
         }

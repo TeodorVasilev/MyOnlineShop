@@ -19,6 +19,7 @@ import RolesView from "./admin/roles/RolesView";
 import EditRoleView from "./admin/roles/EditRoleView";
 import EditUsersInRole from "./admin/roles/EditUsersInRole";
 import OrdersView from "./admin/views/orders/OrdersView";
+import OrderDetailsView from "./admin/views/orders/OrderDetailsView";
 
 class App extends React.Component {
 
@@ -64,6 +65,8 @@ class App extends React.Component {
           <Route path="/admin/editusersinrole" component={EditUsersInRole}>
           </Route>
           <Route path="/admin/orders" component={OrdersView}>
+          </Route>
+          <Route path="/admin/order" component={OrderDetailsView}>
           </Route>
           <Route path="/admin" component={AdminView}>
           </Route>

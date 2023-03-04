@@ -6,6 +6,7 @@ namespace ProductsAPI.Service.OrderService
     {
         void Create(OrderViewModel formData);
         void Update(OrderViewModel formData);
+        OrderViewModel GetOrderById(int id);
         Task<List<OrderViewModel>> GetAllOrders();
     }
 }

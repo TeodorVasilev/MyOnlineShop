@@ -28,5 +28,11 @@ namespace ProductsAPI.Controllers
         {
             return await this._orderService.GetAllOrders();
         }
+
+        [HttpGet("{id}")]
+        public OrderViewModel GetOrder(int id)
+        {
+            return this._orderService.GetOrderById(id);
+        }
     }
 }

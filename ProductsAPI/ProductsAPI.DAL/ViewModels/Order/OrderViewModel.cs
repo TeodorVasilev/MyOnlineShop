@@ -6,11 +6,12 @@ namespace ProductsAPI.DAL.ViewModels.Order
     {
         public int? Id { get; set; }
         public decimal TotalPrice { get; set; }
-        public DateTime OrderDate { get; set; }
+        public string OrderDate { get; set; }
         public string ShippingAddress { get; set; }
         public int UserId { get; set; }
+        public string UserEmail { get; set; }
         public string MobilePhone { get; set; }
-        public OrderStatus Status {get;set;}
+        public string? Status {get;set;}
 
     }
 }

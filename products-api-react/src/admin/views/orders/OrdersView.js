@@ -47,14 +47,6 @@ class OrdersView extends React.Component {
                     </div>
                 </div>
                 <div>
-                    {/* <ul class="nav">
-                        <li class="nav-item">
-                            <Link to="/admin/roles" class="nav-link active ps-0" aria-current="page" href="#">Edit roles</Link>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Add new user</a>
-                        </li>
-                    </ul> */}
                 </div>
                 <table class="table table-striped table-sm text-center">
                     <thead>
@@ -73,20 +65,18 @@ class OrdersView extends React.Component {
                         {this.state.orders.map(order =>
                             <tr>
                                 <td scope="col">{order.id}</td>
-                                <td scope="col">email</td>
+                                <td scope="col">{order.userEmail}</td>
                                 <td scope="col">{order.mobilePhone}</td>
                                 <td scope="col">{order.shippingAddress}</td>
                                 <td scope="col">{order.status}</td>
                                 <td scope="col">{order.totalPrice}$</td>
                                 <td scope="col">{order.orderDate}</td>
                                 <td scope="col">
-                                    <Link className="text-success">Shipped</Link>
+                                    <Link to={{ pathname: "/admin/order", state: { orderId: order.id } }}>Details</Link>
                                     <span> / </span>
-                                    <Link className="text-danger">Cancel</Link>
+                                    <Link className="text-warning">Shipped</Link>
                                     <span> / </span>
                                     <Link className="text-success">Finished</Link>
-                                    <span> / </span>
-                                    <Link>Details</Link>
 
                                 </td>
                             </tr>

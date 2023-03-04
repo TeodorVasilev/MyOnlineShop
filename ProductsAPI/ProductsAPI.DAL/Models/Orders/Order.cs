@@ -11,6 +11,7 @@ namespace ProductsAPI.DAL.Models.Orders
         public string MobilePhone { get; set; }
         public OrderStatus Status { get; set; }
         public int UserId { get; set; }
+        public string UserEmail { get; set; }
         public virtual ApiUser User { get; set; }
         public virtual ICollection<OrderItem> OrderItems{ get; set; }
     }

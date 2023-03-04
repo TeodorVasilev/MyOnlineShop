@@ -2,6 +2,8 @@
 using ProductsAPI.DAL.Data;
 using ProductsAPI.DAL.Models.Orders;
 using ProductsAPI.DAL.ViewModels.Order;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace ProductsAPI.Service.OrderService
 {
@@ -15,17 +17,16 @@ namespace ProductsAPI.Service.OrderService
 
         public async Task<List<OrderViewModel>> GetAllOrders()
         {
-            var orderStatusType = typeof(OrderStatus);
-
             return await this._context.Orders.Select(o => new OrderViewModel()
             {
                 Id = o.Id,
                 UserId = o.UserId,
+                UserEmail = o.UserEmail,
                 MobilePhone = o.MobilePhone,
                 ShippingAddress = o.ShippingAddress,
                 TotalPrice = o.TotalPrice,
-                Status = o.Status,
-                OrderDate = o.OrderDate,
+                Status = o.Status.GetType().GetMember(o.Status.ToString()).FirstOrDefault().GetCustomAttribute<DisplayAttribute>().Name,
+                OrderDate = o.OrderDate.ToString("dd/MM/yyyy HH:mm"),
             }).ToListAsync();
         }
 
@@ -52,6 +53,7 @@ namespace ProductsAPI.Service.OrderService
                 ShippingAddress = formData.ShippingAddress,
                 MobilePhone = formData.MobilePhone,
                 UserId = formData.UserId,
+                UserEmail = formData.UserEmail,
                 OrderDate = DateTime.Now,
             };
 
@@ -62,6 +64,25 @@ namespace ProductsAPI.Service.OrderService
         public void Update(OrderViewModel formData)
         {
             throw new NotImplementedException();
+        }
+
+        public OrderViewModel GetOrderById(int id)
+        {
+            var order = this._context.Orders.Where(o => o.Id == id).FirstOrDefault();
+
+            var model = new OrderViewModel()
+            {
+                Id = order.Id,
+                UserId = order.UserId,
+                UserEmail = order.UserEmail,
+                MobilePhone = order.MobilePhone,
+                OrderDate = order.OrderDate.ToString(),
+                ShippingAddress = order.ShippingAddress,
+                Status = order.Status.GetType().GetMember(order.Status.ToString()).FirstOrDefault().GetCustomAttribute<DisplayAttribute>().Name,
+                TotalPrice = order.TotalPrice
+            };
+
+            return model;
         }
     }
 }
