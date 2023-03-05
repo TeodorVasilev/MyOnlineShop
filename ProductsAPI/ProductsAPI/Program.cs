@@ -10,6 +10,7 @@ using ProductsAPI.Service.ImageService;
 using ProductsAPI.Service.LoginService;
 using ProductsAPI.Service.OptionService;
 using ProductsAPI.Service.OrderService;
+using ProductsAPI.Service.ProductSearchService;
 using ProductsAPI.Service.ProductService;
 using ProductsAPI.Service.PropertyService;
 using ProductsAPI.Service.RegisterService;
@@ -74,6 +75,7 @@ builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<IOptionService, OptionService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IProductSearchService, ProductSearchService>();
 
 var app = builder.Build();
 

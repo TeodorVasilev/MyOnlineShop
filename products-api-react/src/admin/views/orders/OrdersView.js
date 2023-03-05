@@ -72,7 +72,7 @@ class OrdersView extends React.Component {
                                 <td scope="col">{order.totalPrice}$</td>
                                 <td scope="col">{order.orderDate}</td>
                                 <td scope="col">
-                                    <Link to={{ pathname: "/admin/order", state: { orderId: order.id } }}>Details</Link>
+                                    <Link to={{ pathname: "/admin/order", state: { orderId: order.id, userId: order.userId } }}>Details</Link>
                                     <span> / </span>
                                     <Link className="text-warning">Shipped</Link>
                                     <span> / </span>

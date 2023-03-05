@@ -9,6 +9,7 @@ import * as actions from "../actions/AuthActions";
 import Constants from "../constants/Constants";
 import jwt_decode from "jwt-decode";
 import NetworkClient from "../api/NetworkClient";
+import MainSearch from "../components/main-search/MainSearch";
 
 class TopLayout extends React.Component {
 
@@ -152,7 +153,7 @@ class TopLayout extends React.Component {
                         </div>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <div className="ms-auto me-auto">
-                                <form className="d-flex" role="search">
+                                {/* <form className="d-flex" role="search">
                                     <div class="main-search-input-wrap ms-5">
                                         <div class="main-search-input fl-wrap">
                                             <div class="main-search-input-item">
@@ -161,7 +162,8 @@ class TopLayout extends React.Component {
                                             <button class="main-search-button">Search</button>
                                         </div>
                                     </div>
-                                </form>
+                                </form> */}
+                                <MainSearch></MainSearch>
                             </div>
                             <div className="ms-auto">
                                 <ul className="navbar-nav mb-2 mb-lg-0">
