@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+        searchQuery: '',
         products: [],
         pages: [],
         fetching: false
@@ -11,7 +12,7 @@ const ProductReducer = (state = INITIAL_STATE, action) => {
         case 'FetchProducts':
             return {...state, fetching: action.payload}
         case 'FetchProductsSuccess':
-            return {...state, products: action.payload.products, 
+            return {...state, searchQuery: action.payload.searchQuery, products: action.payload.products, 
                 pages: Array.from({ length: action.payload.totalPages }, (_, i) => i + 1), fetching: false}
         default:
             return state;

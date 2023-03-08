@@ -15,7 +15,7 @@ class HomeView extends React.Component {
         return (
             <TopLayout>
                 <div className="container mt-4">
-                    <ProductsList width={3}></ProductsList>
+                    <ProductsList width={3} perPage={4}></ProductsList>
                 </div>
             </TopLayout>
         );

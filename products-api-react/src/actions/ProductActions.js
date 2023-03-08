@@ -10,37 +10,25 @@ export function setProductsSuccess(value) {
 }
 
 export const setProducts = (data) => async (dispatch) => {
-    const url = Constants.BASE_URL +
-        'Products' + `?CurrentPage=${data.page}&CategoryId=${data.categoryId}
-        &PriceFrom=0&PriceTo=0&Order=0&PerPage=4`;
-
+    console.log(data);
+    let url;
+    if (data.query && data.query.length > 0) {
+      url = Constants.BASE_URL + `ProductSearch?query=${data.query}&page=${data.page}&perPage=${data.perPage}`;
+    } else {
+      url = Constants.BASE_URL +
+          'Products' + `?CurrentPage=${data.page}&CategoryId=${data.categoryId}
+          &PriceFrom=0&PriceTo=0&Order=${data.orderBy}&PerPage=${data.perPage}`;
+    }
+    
     dispatch(setProductsRequest(true));
     await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
     })
-        .then(response => response.json())
-        .then(response => {
-            console.log(response);
-            dispatch(setProductsSuccess(response));
-        });
+    .then(response => response.json())
+    .then(response => {
+      dispatch(setProductsSuccess({...response, searchQuery: data.query}));
+    });
 }
-
-export const searchProducts = (query) => async (dispatch) => {
-    const url = Constants.BASE_URL + `ProductSearch?query=${query}&page=1&perPage=10`;
-
-    dispatch(setProductsRequest(true));
-    await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(response => {
-            console.log(response);
-            dispatch(setProductsSuccess(response));
-        });
-};

@@ -17,10 +17,9 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet]
-        public ProductListViewModel ProductSearch(string query, int page = 1, int perPage = 10)
+        public ProductListViewModel ProductSearch(string? query = "", int page = 1, int perPage = 10)
         {
             return _productSearchService.Search(query, page, perPage);
-            //return Ok(products);
         }
     }
 }

@@ -12,11 +12,17 @@ class MainSearch extends React.Component {
     }
 
     state = {
-        query: '',
+        query: ''
     }
-
+    
     searchProducts = () => {
-        this.props.searchProducts(this.state.query);
+        let data = {
+            query: this.state.query,
+            page: 1,
+            perPage:4,
+            categoryId: 0
+        }
+        this.props.setProducts(data);
     }
 
     render() {
@@ -49,7 +55,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        searchProducts: actions.searchProducts
+        setProducts: actions.setProducts
     }, dispatch)
 }
 

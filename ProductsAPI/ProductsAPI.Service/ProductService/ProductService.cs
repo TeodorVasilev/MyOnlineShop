@@ -138,10 +138,10 @@ namespace ProductsAPI.Service.ProductService
             {
                 query = query.Where(p => p.Price <= filters.PriceTo);
             }
+
             //1 - newest first
             //2 - lowest price first
             //3 - hightest price first
-
             if (filters.Order == 2)
             {
                 query = query.OrderBy(p => p.Price);

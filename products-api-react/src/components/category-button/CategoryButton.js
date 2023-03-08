@@ -20,6 +20,7 @@ class CategoryButton extends React.Component {
 
         const data = {
             categoryId: this.props.id,
+            perPage: 1,
             page: 1
         }
 

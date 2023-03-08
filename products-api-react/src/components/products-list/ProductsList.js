@@ -9,26 +9,46 @@ class ProductsList extends React.Component {
         super(props)
     }
 
-    changePage = (event, page) => {
-        event.preventDefault();
-        const data = {
-            categoryId: this.props.category.id,
-            page
-        }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.perPage !== this.props.perPage || nextProps.orderBy !== this.props.orderBy) {
+            const data = {
+                categoryId: this.props.category.id,
+                query: this.props.products.searchQuery,
+                perPage: nextProps.perPage,
+                orderBy: nextProps.orderBy,
+                page: 1
+            }
 
-        this.loadProducts(data);
+            this.loadProducts(data);
+        }
     }
 
-    componentDidMount(){       
+    componentDidMount() {
         const data = {
             categoryId: this.props.category.id,
+            perPage: this.props.perPage,
+            orderBy: 0,
             page: 1
         }
 
         this.loadProducts(data);
     }
 
-    loadProducts = (data) =>{
+    changePage = (event, page) => {
+        event.preventDefault();
+
+        const data = {
+            categoryId: this.props.category.id,
+            query: this.props.products.searchQuery,
+            perPage: this.props.perPage,
+            orderBy: this.props.orderBy,
+            page
+        }
+
+        this.loadProducts(data);
+    }
+
+    loadProducts = (data) => {
         this.props.setProducts(data);
     }
 
@@ -74,4 +94,4 @@ const mapDispatchToProps = dispatch => {
         setProducts: actions.setProducts,
     }, dispatch)
 }
-export default connect(mapStateToProps,mapDispatchToProps)(ProductsList);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);

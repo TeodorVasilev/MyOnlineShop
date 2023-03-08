@@ -8,13 +8,33 @@ class ProductsView extends React.Component {
         super(props)
     }
 
+    state = {
+        perPage: 3,
+        orderBy: 0
+    }
+
     render() {
         return (
             <TopLayout>
                 <div className="container mt-4 border rounded">
                     <div className="row gx-3 pt-3">
                         <div className="filters-panel col-3 border-end">
-                            filters
+                            <div className="price-filter">
+                                <h4>Price</h4>
+                                <div className="form-group">
+                                    <div className="input-group">
+                                        <input type="number" className="form-control" placeholder="Min Price" />
+                                    </div>
+                                </div>
+                                <div className="form-group mt-2">
+                                    <div className="input-group">
+                                        <input type="number" className="form-control" placeholder="Max Price" />
+                                    </div>
+                                </div>
+                                <div className="form-group mt-2">
+                                    <button type="button" className="btn btn-primary">Filter</button>
+                                </div>
+                            </div>
                         </div>
                         <div className="col-9">
                             <div className="d-flex justify-content-between align-items-center">
@@ -23,21 +43,26 @@ class ProductsView extends React.Component {
                                 </div>
                                 <div className="order-by d-flex">
                                     <label className="me-2">Order by:</label>
-                                    <select className="">
-                                        <option>Newest</option>
-                                        <option>Lowest price</option>
-                                        <option>Highest price</option>
+                                    <select defaultValue={0} onChange={e => this.setState({orderBy: e.target.value})}>
+                                        <option value={0}></option>
+                                        <option value={1}>Newest</option>
+                                        <option value={2}>Lowest price</option>
+                                        <option value={3}>Highest price</option>
                                     </select>
                                 </div>
                             </div>
-                            <div className="per-page">
-                                <label>Per page:</label>
-                                <select>
+                            <div className="per-page mb-2">
+                                <label className="me-2">Per page:</label>
+                                <select defaultValue={3} onChange={e => this.setState({ perPage: e.target.value })}>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
                                     <option>20</option>
                                 </select>
                             </div>
                             <div>
-                                <ProductsList width={4}></ProductsList>
+                                <ProductsList width={4} perPage={this.state.perPage} orderBy={this.state.orderBy}></ProductsList>
                             </div>
                         </div>
                     </div>
